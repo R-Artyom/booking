@@ -41,4 +41,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Брони пользователя
+    public function bookings()
+    {
+        // Связь с таблицей bookings - один ко многим
+        return $this->hasMany(Booking::class, 'user_id', 'id');
+    }
 }
