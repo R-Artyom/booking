@@ -9,7 +9,7 @@ class Room extends Model
 {
     use HasFactory;
     // Явное название таблицы
-    protected $table = 'room';
+    protected $table = 'rooms';
     // Снять защиту массового заполнения модели
     protected $guarded = false;
 

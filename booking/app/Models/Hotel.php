@@ -9,7 +9,7 @@ class Hotel extends Model
 {
     use HasFactory;
     // Явное название таблицы
-    protected $table = 'hotel';
+    protected $table = 'hotels';
     // Снять защиту массового заполнения модели
     protected $guarded = false;
 
