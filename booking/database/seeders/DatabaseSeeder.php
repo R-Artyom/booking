@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // Заполнение таблицы 'hotels' тестовыми значениями
         $this->call(HotelSeeder::class);
+        // Заполнение таблицы 'rooms' тестовыми значениями
+        $this->call(RoomSeeder::class);
     }
 }

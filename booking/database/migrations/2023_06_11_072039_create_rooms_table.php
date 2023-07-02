@@ -17,7 +17,7 @@ class CreateRoomsTable extends Migration
             // Поля
             $table->id()->comment('Уникальный идентификатор номера отеля');
             $table->string('title', 100)->comment('Название номера');
-            $table->text('description')->nullable()->comment('Описание номер');
+            $table->text('description')->nullable()->comment('Описание номера');
             $table->string('poster_url', 100)->nullable()->comment('Ссылка на изображение');
             $table->decimal('floor_area', 8, 2)->comment('Площадь номера');
             $table->string('type', 100)->comment('Тип');
