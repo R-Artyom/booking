@@ -13,9 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Заполнение таблицы 'hotels' тестовыми значениями
+        // * Заполнение тестовыми значениями:
+        // Таблица 'hotels'
         $this->call(HotelSeeder::class);
-        // Заполнение таблицы 'rooms' тестовыми значениями
+        // Таблица 'rooms'
         $this->call(RoomSeeder::class);
+        // Таблица 'users'
+        $this->call(UserSeeder::class);
+        // Таблица 'bookings'
+        $this->call(BookingSeeder::class);
     }
 }
