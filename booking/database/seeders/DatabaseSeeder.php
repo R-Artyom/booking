@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FacilitySeeder::class);
         // Таблица 'facility_hotel'
         $this->call(FacilityHotelSeeder::class);
+        // Таблица 'facility_room'
+        $this->call(FacilityRoomSeeder::class);
     }
 }
