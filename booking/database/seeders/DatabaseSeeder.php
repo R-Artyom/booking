@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Factories\FacilityHotelFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BookingSeeder::class);
         // Таблица 'facilities'
         $this->call(FacilitySeeder::class);
+        // Таблица 'facility_hotel'
+        $this->call(FacilityHotelSeeder::class);
     }
 }

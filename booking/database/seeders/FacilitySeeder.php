@@ -15,6 +15,6 @@ class FacilitySeeder extends Seeder
     public function run()
     {
         // Заполнение таблицы 'facilities' базы данных тестовыми значениями
-        Facility::factory(100)->create();
+        Facility::factory(30)->create();
     }
 }
