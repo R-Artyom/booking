@@ -16,8 +16,8 @@ class Room extends Model
     // Отель
     public function hotel()
     {
-        // Связь с таблицей hotels - один к одному
-        return $this->hasOne(Hotel::class, 'hotel_id', 'id');
+        // Связь с таблицей hotels - многие к одному
+        return $this->belongsTo(Hotel::class, 'hotel_id', 'id');
     }
 
     // Удобства
@@ -26,6 +26,4 @@ class Room extends Model
         // Связь с таблицей facilities - многие ко многим (через сводную таблицу)
         return $this->belongsToMany(Facility::class, 'facility_room', 'room_id','facility_id');
     }
-
-
 }

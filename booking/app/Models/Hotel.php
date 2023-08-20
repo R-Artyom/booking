@@ -19,4 +19,11 @@ class Hotel extends Model
         // Связь с таблицей facilities - многие ко многим (через сводную таблицу)
         return $this->belongsToMany(Facility::class, 'facility_hotel', 'hotel_id','facility_id');
     }
+
+    // Номера, которые есть у отеля
+    public function rooms()
+    {
+        // Связь с таблицей rooms - один ко многим
+        return $this->hasMany(Room::class, 'hotel_id', 'id');
+    }
 }

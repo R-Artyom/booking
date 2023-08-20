@@ -19,4 +19,11 @@ class Booking extends Model
         // Связь с таблицей users - многие к одному
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    // Забронированный номер отеля
+    public function room()
+    {
+        // Связь с таблицей rooms - многие к одному
+        return $this->belongsTo(Room::class, 'room_id', 'id');
+    }
 }
