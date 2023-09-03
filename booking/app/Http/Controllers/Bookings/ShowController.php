@@ -9,10 +9,8 @@ use Illuminate\Http\Request;
 class ShowController extends Controller
 {
     // Просмотр бронирования
-    public function __invoke($id)
+    public function __invoke(Booking $booking)
     {
-        // Бронирование
-        $booking = Booking::with('user')->where('id', $id)->first();
         // Шаблон бронирования
         return view('bookings.show', compact('booking'));
     }

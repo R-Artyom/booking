@@ -9,10 +9,8 @@ use Illuminate\Http\Request;
 class ShowController extends Controller
 {
     // Просмотр отеля
-    public function __invoke($id)
+    public function __invoke(Hotel $hotel)
     {
-        // Отель
-        $hotel = Hotel::with('rooms')->where('id', $id)->first();
         // Номера отеля
         $rooms = $hotel->rooms; // То же самое, что $rooms = $hotel->rooms()->get();
         // Шаблон отеля
