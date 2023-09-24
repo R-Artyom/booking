@@ -16,14 +16,21 @@ class Room extends Model
     // Отель
     public function hotel()
     {
-        // Связь с таблицей hotels - многие к одному
+        // Связь номеров с отелями - принадлежит одному (обратная связь "Один ко многим")
         return $this->belongsTo(Hotel::class, 'hotel_id', 'id');
     }
 
     // Удобства
     public function facilities()
     {
-        // Связь с таблицей facilities - многие ко многим (через сводную таблицу)
+        // Связь номеров с удобствами - многие ко многим (через сводную таблицу)
         return $this->belongsToMany(Facility::class, 'facility_room', 'room_id','facility_id');
+    }
+
+    // Бронирования
+    public function bookings()
+    {
+        // Связь номера с бронированиями - один ко многим
+        return $this->hasMany(Booking::class, 'room_id', 'id');
     }
 }
