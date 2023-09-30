@@ -18,8 +18,8 @@ class CreateBookingsTable extends Migration
             $table->id()->comment('Уникальный идентификатор брони');
             $table->unsignedBigInteger('room_id')->comment('Id номера');
             $table->unsignedBigInteger('user_id')->comment('Id пользователя');
-            $table->timestamp('started_at')->comment('Дата заезда');
-            $table->timestamp('finished_at')->comment('Дата выезда');
+            $table->date('started_at')->comment('Дата заезда');
+            $table->date('finished_at')->comment('Дата выезда');
             $table->unsignedInteger('days')->comment('Количество дней');
             $table->decimal('price', 8, 2)->comment('Цена');
             $table->timestamp('created_at')->nullable()->comment('Дата создания записи');
