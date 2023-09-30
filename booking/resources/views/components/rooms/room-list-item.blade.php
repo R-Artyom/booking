@@ -25,8 +25,8 @@
             </div>
             <form class="ml-4" method="POST" action="{{ route('bookings.store') }}">
                 @csrf
-                <input type="hidden" name="started_at" value="{{ request()->get('start_date', \Carbon\Carbon::now()->format('d-m-Y')) }}">
-                <input type="hidden" name="finished_at" value="{{ request()->get('end_date', \Carbon\Carbon::now()->format('d-m-Y')) }}">
+                <input type="hidden" name="started_at" min="{{ date('Y-m-d') }}" value="{{ request()->get('start_date', \Carbon\Carbon::now()->format('Y-m-d')) }}">
+                <input type="hidden" name="finished_at" min="{{ date('Y-m-d') }}" value="{{ request()->get('end_date', \Carbon\Carbon::now()->addDay()->format('Y-m-d')) }}">
                 <input type="hidden" name="room_id" value="{{ $room->id }}">
                 <x-the-button class=" h-full w-full">{{ __('Book') }}</x-the-button>
             </form>
