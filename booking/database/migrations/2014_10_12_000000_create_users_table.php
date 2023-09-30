@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
 
             // Поля
             $table->id()->comment('Уникальный идентификатор пользователя');
-            $table->string('full_name', 100)->comment('ФИО пользователя');
+            $table->string('name', 100)->comment('ФИО пользователя');
             $table->string('email', 100)->comment('email пользователя');
             $table->timestamp('email_verified_at')->nullable()->comment('Дата подтверждния email-а пользователя');
             $table->string('password', 255)->comment('Пароль пользователя');
