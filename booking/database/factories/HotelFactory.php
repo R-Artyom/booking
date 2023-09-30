@@ -15,7 +15,7 @@ class HotelFactory extends Factory
     {
         return [
             // Название отеля
-            'title' => $this->faker->company(),
+            'name' => $this->faker->company(),
             // Описание отеля
             'description' => $this->faker->realText(rand(50, 500)), // 50-500 символов
             // Ссылка на изображение

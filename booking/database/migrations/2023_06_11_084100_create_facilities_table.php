@@ -16,7 +16,7 @@ class CreateFacilitiesTable extends Migration
         Schema::create('facilities', function (Blueprint $table) {
             // Поля
             $table->id()->comment('Уникальный идентификатор удобства');
-            $table->string('title', 100)->comment('Название удобства');
+            $table->string('name', 100)->comment('Название удобства');
             $table->timestamp('created_at')->nullable()->comment('Дата создания записи');
             $table->timestamp('updated_at')->nullable()->comment('Дата обновления записи');
             // Уникальные индексы

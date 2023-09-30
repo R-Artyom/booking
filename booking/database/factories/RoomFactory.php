@@ -16,7 +16,7 @@ class RoomFactory extends Factory
     {
         return [
             // Название номера
-            'title' => $this->faker->realText(rand(10, 100)), // 10-100 символов
+            'name' => $this->faker->realText(rand(10, 100)), // 10-100 символов
             // Описание номера
             'description' => $this->faker->realText(rand(50, 500)),
             // Ссылка на изображение

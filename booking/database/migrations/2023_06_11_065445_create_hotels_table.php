@@ -16,7 +16,7 @@ class CreateHotelsTable extends Migration
         Schema::create('hotels', function (Blueprint $table) {
             // Поля
             $table->id()->comment('Уникальный идентификатор отеля');
-            $table->string('title', 100)->comment('Название отеля');
+            $table->string('name', 100)->comment('Название отеля');
             $table->text('description')->nullable()->comment('Описание отеля');
             $table->string('poster_url', 100)->nullable()->comment('Ссылка на изображение');
             $table->string('address', 500)->comment('Адрес');
