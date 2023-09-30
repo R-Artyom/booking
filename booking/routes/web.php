@@ -30,4 +30,6 @@ Route::group(['namespace' =>'Bookings'], function() {
     Route::get('/bookings', 'IndexController')->name('bookings.index');
     // Страница просмотра бронирования
     Route::get('/bookings/{booking}', 'ShowController')->name('bookings.show');
+    // Сохранение данных бронирования номера
+    Route::post('/bookings', 'StoreController')->name('bookings.store');
 });
