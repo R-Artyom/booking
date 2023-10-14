@@ -12,8 +12,7 @@ class IndexController extends Controller
     public function __invoke()
     {
         // Отели с удобствами и комнатами
-        $hotels = Hotel::with('facilities')->with('rooms')->get();
-
+        $hotels = Hotel::with(['facilities', 'rooms'])->get();
         // Диапазон цен за 1 ночь
         $hotels->map(function ($hotels) {
             // Минимальная цена за номер
