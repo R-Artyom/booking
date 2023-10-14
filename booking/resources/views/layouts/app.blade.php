@@ -9,10 +9,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
-        <script src="{{ mix('js/app.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/datepicker.min.js"></script>
+        <!-- Css -->
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     </head>
     <body class="font-sans antialiased">
@@ -33,5 +32,9 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <!-- Scripts -->
+        <script src="{{ mix('js/app.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/datepicker.min.js"></script>
     </body>
 </html>
