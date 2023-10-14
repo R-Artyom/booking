@@ -33,3 +33,5 @@ Route::group(['namespace' =>'Bookings'], function() {
     // Сохранение данных бронирования номера
     Route::post('/bookings', 'StoreController')->name('bookings.store');
 });
+
+require __DIR__.'/auth.php';

@@ -9,6 +9,7 @@
         "codeat3/blade-google-material-design-icons": "^1.18",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/breeze": "^1.10",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5"
