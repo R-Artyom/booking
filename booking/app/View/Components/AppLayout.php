@@ -7,22 +7,12 @@ use Illuminate\View\Component;
 class AppLayout extends Component
 {
     /**
-     * Create a new component instance.
+     * Get the view / contents that represents the component.
      *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return \Illuminate\View\View
      */
     public function render()
     {
-        return view('components.app-layout');
+        return view('layouts.app');
     }
 }
