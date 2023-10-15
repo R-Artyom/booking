@@ -24,6 +24,17 @@
                 </div>
             </div>
 
+            @guest
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('login') }}">
+                        {{ __('Log in') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('register') }}">
+                        {{ __('Register') }}
+                    </x-nav-link>
+                </div>
+            @endguest
+
             <!-- Settings Dropdown -->
             @if(auth()->check())
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
