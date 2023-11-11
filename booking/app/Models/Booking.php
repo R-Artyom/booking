@@ -12,6 +12,8 @@ class Booking extends Model
     protected $table = 'bookings';
     // Снять защиту массового заполнения модели
     protected $guarded = false;
+    // Постоянная жадная загрузка
+    protected $with = ['room'];
 
     // Пользователь, сделавший бронирование
     public function user()
@@ -24,6 +26,6 @@ class Booking extends Model
     public function room()
     {
         // Связь бронирования с номерами - принадлежит одному (обратная связь "Один ко многим")
-        return $this->belongsTo(Room::class, 'room_id', 'id');
+        return $this->belongsTo(Room::class, 'room_id', 'id')->with(['hotel']);
     }
 }

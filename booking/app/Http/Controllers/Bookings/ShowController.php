@@ -11,6 +11,8 @@ class ShowController extends Controller
     // Просмотр бронирования
     public function __invoke(Booking $booking)
     {
+        // Проверка прав пользователя
+        $this->authorize('view', $booking);
         // Шаблон бронирования
         return view('bookings.show', compact('booking'));
     }

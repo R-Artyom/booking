@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -29,6 +30,13 @@ class CreateUsersTable extends Migration
             $table->unique('id');
             $table->unique('email');
         });
+
+        // Создание первого администратора
+        User::create([
+            'name' => 'admin',
+            'email' => 'admin@mail.ru',
+            'password' => bcrypt('admin'),
+        ]);
     }
 
     /**

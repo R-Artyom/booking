@@ -42,10 +42,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Постоянная жадная загрузка
+    protected $with = ['roles'];
+
     // Брони пользователя
     public function bookings()
     {
         // Связь с таблицей bookings - один ко многим
         return $this->hasMany(Booking::class, 'user_id', 'id');
+    }
+
+    // Роли пользователя
+    public function roles()
+    {
+        // Связь с таблицей roles - многие ко многим (через сводную таблицу)
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id','name');
+    }
+
+    // Отели пользователя
+    public function hotels()
+    {
+        // Связь с таблицей hotels - многие ко многим (через сводную таблицу)
+        return $this->belongsToMany(Hotel::class, 'hotel_user', 'user_id','hotel_id');
     }
 }

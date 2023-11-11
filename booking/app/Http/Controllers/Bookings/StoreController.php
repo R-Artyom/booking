@@ -14,6 +14,9 @@ class StoreController extends Controller
     // Сохранение бронирования
     public function __invoke(Request $request)
     {
+        // Проверка прав пользователя
+        $this->authorize('create', Booking::class);
+
         $validated = $this->validate($request, [
             // Дата начала заезда
             'started_at' => 'required',
@@ -62,9 +65,7 @@ class StoreController extends Controller
             // Id номера
             'room_id' => $validated['room_id'],
             // Id пользователя
-            // TODO после введения авторизации строку раскомментировать, а хардкод удалить
-            //'user_id' => auth()->user()->id,
-            'user_id' => 1,
+            'user_id' => auth()->user()->id,
             // Дата заезда
             'started_at' => $validated['started_at'],
             // Дата выезда
