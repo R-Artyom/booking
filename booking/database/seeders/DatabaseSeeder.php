@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Hotel;
 use App\Models\HotelUser;
 use App\Models\RoleUser;
+use App\Models\Room;
 use App\Models\User;
-use Database\Factories\FacilityHotelFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,20 +19,34 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // * Заполнение тестовыми значениями:
-        // Таблица 'users'
+        // Таблица 'users' (Пользователи)
         $users = User::factory(100)->create();
-        // Таблица 'hotels'
-        $this->call(HotelSeeder::class);
-        // Таблица 'rooms'
+
+        // Таблица 'hotels' (Отели)
+        $hotels = Hotel::factory(100)->create();
+
+        // Таблица 'rooms' (Номера)
+        // Генерирование 100 шт комнат по умолчанию - со случайным отелем
         $this->call(RoomSeeder::class);
-        // Таблица 'bookings'
+        // Геренирование для каждого отеля одного номера, чтобы не было отелей без номеров
+        foreach ($hotels as $hotel) {
+            Room::factory()->create([
+                'hotel_id' => $hotel->id,
+            ]);
+        }
+
+        // Таблица 'bookings' (Бронирования)
         $this->call(BookingSeeder::class);
-        // Таблица 'facilities'
+
+        // Таблица 'facilities' (Удобства)
         $this->call(FacilitySeeder::class);
-        // Таблица 'facility_hotel'
+
+        // Таблица 'facility_hotel' (Удобства отелей)
         $this->call(FacilityHotelSeeder::class);
-        // Таблица 'facility_room'
+
+        // Таблица 'facility_room' (Удобства номеров)
         $this->call(FacilityRoomSeeder::class);
+
         // Таблица 'role_user' (Роли пользоваелей)
         foreach ($users as $user) {
             RoleUser::factory()->create([
@@ -40,6 +55,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => $user->created_at,
             ]);
         }
+
         // Таблица 'hotel_user' (Отели админа и менеджера)
         foreach ($users as $user) {
             // Все роли юзера
