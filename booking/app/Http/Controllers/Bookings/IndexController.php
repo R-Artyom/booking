@@ -9,10 +9,17 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
     // Список бронирований
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        // Бронирования
-        $bookings = Booking::with('room')->get();
+        // Проверка прав пользователя
+        $this->authorize('viewAny', Booking::class);
+
+        // Текущий пользователь
+        $user = auth()->user();
+
+        // Бронирования текущего пользователя
+        $bookings = Booking::where('user_id', $user->id)->get();
+
         // Шаблон бронирований
         return view('bookings.index', compact('bookings'));
     }
