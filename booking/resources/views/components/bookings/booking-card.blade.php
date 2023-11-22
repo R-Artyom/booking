@@ -8,9 +8,18 @@
             </div>
             @if($showLink ?? false)
             <div class="flex">
-                <x-link-button href="{{ route('bookings.show', ['booking' => $booking]) }}">Подробнее</x-link-button>
+                @if(request()->route()->getPrefix() === '/admin')
+                    <x-link-button href="{{ route('admin.bookings.show', ['booking' => $booking]) }}">Подробнее</x-link-button>
+                @else
+                    <x-link-button href="{{ route('bookings.show', ['booking' => $booking]) }}">Подробнее</x-link-button>
+                @endif
             </div>
             @endif
+            <form class="ml-4" method="POST" action="{{ route('bookings.destroy', ['booking' => $booking]) }}">
+                @csrf
+                <input type="hidden" name="prefix" value="{{ request()->route()->getPrefix() }}">
+                <x-the-button-delete class=" h-full w-full">Отменить</x-the-button-delete>
+            </form>
         </div>
         <div class="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:space-x-6 w-full">
             <div class="pb-4 w-full md:w-2/5">

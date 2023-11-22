@@ -33,15 +33,9 @@ class BookingPolicy
     {
         // Владелец бронирования
         $isOwner = $booking->user_id === $user->id;
-        // Админ
-        $isAdmin = $user->roles->containsStrict('name', 'admin');
-        // Менеджер отеля
-        $isManager = $user->roles->containsStrict('name', 'manager') && $user->hotels->containsStrict('id', $booking->room->hotel_id);
-        // Гость
-        $isGuest = $user->roles->containsStrict('name', 'guest');
 
-        // Доступно любому админу, менеджеру отеля, гостю, владельцу бронирования
-        if ($isAdmin || $isManager || $isGuest || $isOwner) {
+        // Доступно владельцу бронирования
+        if ($isOwner) {
             return true;
         }
 
@@ -82,7 +76,8 @@ class BookingPolicy
      */
     public function delete(User $user, Booking $booking)
     {
-        //
+        // Отмена бронирования - доступно владельцу, админу и менеджеру отеля
+        return $this->view($user, $booking) || $this->viewAdmin($user, $booking);
     }
 
     /**
@@ -107,5 +102,50 @@ class BookingPolicy
     public function forceDelete(User $user, Booking $booking)
     {
         //
+    }
+
+    /**
+     * Управление бронированиями
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAnyAdmin(User $user)
+    {
+        // Админ
+        $isAdmin = $user->roles->containsStrict('name', 'admin');
+        // Менеджер
+        $isManager = $user->roles->containsStrict('name', 'manager');
+
+        // Доступно админу и менеджеру
+        if ($isAdmin || $isManager) {
+            return true;
+        }
+
+        // Остальным недоступно
+        return false;
+    }
+
+    /**
+     * Управление бронированием
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Booking  $booking
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAdmin(User $user, Booking $booking)
+    {
+        // Админ
+        $isAdmin = $user->roles->containsStrict('name', 'admin');
+        // Менеджер отеля
+        $isManager = $user->roles->containsStrict('name', 'manager') && $user->hotels->containsStrict('id', $booking->room->hotel_id);
+
+        // Доступно админу и менеджеру отеля
+        if ($isAdmin || $isManager) {
+            return true;
+        }
+
+        // Остальным недоступно
+        return false;
     }
 }

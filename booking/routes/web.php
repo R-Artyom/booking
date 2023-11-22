@@ -32,6 +32,16 @@ Route::group(['namespace' =>'Bookings'], function() {
     Route::get('/bookings/{booking}', 'ShowController')->name('bookings.show');
     // Сохранение данных бронирования номера
     Route::post('/bookings', 'StoreController')->name('bookings.store');
+    // Отмена бронирования
+    Route::post('/bookings/{booking}', 'DestroyController')->name('bookings.destroy');
+
+    // Админ роуты
+    Route::group(['prefix' =>'admin'], function () {
+        // Страница управления бронированиями (соответствует '/admin/bookings')
+        Route::get('/bookings', 'AdminIndexController')->name('admin.bookings.index');
+        // Страница управления бронированием
+        Route::get('/bookings/{booking}', 'AdminShowController')->name('admin.bookings.show');
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -27,6 +27,7 @@ class CreateRoleUserTable extends Migration
             $table->index('user_id');
 
             // * Уникальные индексы
+            // Примеч. - если у одного пользователя м.б. много ролей - то этот индекс надо убрать
             $table->unique('user_id');
 
             // * Внешние ключи:
