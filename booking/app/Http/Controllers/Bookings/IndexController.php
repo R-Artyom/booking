@@ -18,7 +18,7 @@ class IndexController extends Controller
         $user = auth()->user();
 
         // Бронирования текущего пользователя
-        $bookings = Booking::where('user_id', $user->id)->get();
+        $bookings = Booking::where('user_id', $user->id)->paginate(5);
 
         // Шаблон бронирований
         return view('bookings.index', compact('bookings'));

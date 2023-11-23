@@ -18,6 +18,9 @@
     "Forgot your password?": "Забыли пароль",
     "Remember me": "Запомнить меня",
     "Register": "Зарегистрироваться",
-    "Confirm Password": "Повторите пароль"
-
+    "Confirm Password": "Повторите пароль",
+    "Showing": "Показано записей с ",
+    "to": "по",
+    "of": "из",
+    "results": " "
 }

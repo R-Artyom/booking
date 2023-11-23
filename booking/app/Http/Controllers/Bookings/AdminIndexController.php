@@ -21,7 +21,7 @@ class AdminIndexController extends Controller
         // * Админ
         if ($user->roles->containsStrict('name', 'admin')) {
             // Бронирования всех пользователей
-            $bookings = Booking::get();
+            $bookings = Booking::paginate(5);
         }
 
         // * Менеджер отеля
@@ -31,7 +31,7 @@ class AdminIndexController extends Controller
             // Список номеров
             $roomIds = Room::whereIn('hotel_id', $hotelIds)->get()->pluck('id')->toArray();
             // Бронирования отелей менеджера
-            $bookings = Booking::whereIn('room_id', $roomIds)->orWhere('user_id', $user->id)->get();
+            $bookings = Booking::whereIn('room_id', $roomIds)->orWhere('user_id', $user->id)->paginate(5);
         }
 
         // Шаблон бронирований
