@@ -13,7 +13,7 @@ class Booking extends Model
     // Снять защиту массового заполнения модели
     protected $guarded = false;
     // Постоянная жадная загрузка
-    protected $with = ['room'];
+    protected $with = ['room', 'user'];
 
     // Пользователь, сделавший бронирование
     public function user()
