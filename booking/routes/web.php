@@ -27,9 +27,9 @@ Route::group(['namespace' =>'Hotels'], function() {
 // Бронирования
 Route::group(['namespace' =>'Bookings'], function() {
     // Страница списка бронирований
-    Route::get('/bookings', 'IndexController')->name('bookings.index');
+    Route::get('/bookings', 'IndexController')->middleware('forgetSessionUrlPrePrevious')->name('bookings.index');
     // Страница просмотра бронирования
-    Route::get('/bookings/{booking}', 'ShowController')->name('bookings.show');
+    Route::get('/bookings/{booking}', 'ShowController')->middleware('putSessionUrlPrePrevious')->name('bookings.show');
     // Сохранение данных бронирования номера
     Route::post('/bookings', 'StoreController')->name('bookings.store');
     // Отмена бронирования
@@ -38,9 +38,9 @@ Route::group(['namespace' =>'Bookings'], function() {
     // Админ роуты
     Route::group(['prefix' =>'admin'], function () {
         // Страница управления бронированиями (соответствует '/admin/bookings')
-        Route::get('/bookings', 'AdminIndexController')->name('admin.bookings.index');
+        Route::get('/bookings', 'AdminIndexController')->middleware('forgetSessionUrlPrePrevious')->name('admin.bookings.index');
         // Страница управления бронированием
-        Route::get('/bookings/{booking}', 'AdminShowController')->name('admin.bookings.show');
+        Route::get('/bookings/{booking}', 'AdminShowController')->middleware('putSessionUrlPrePrevious')->name('admin.bookings.show');
     });
 });
 

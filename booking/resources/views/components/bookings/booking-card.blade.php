@@ -17,7 +17,6 @@
             @endif
             <form class="ml-4" method="POST" action="{{ route('bookings.destroy', ['booking' => $booking]) }}">
                 @csrf
-                <input type="hidden" name="prefix" value="{{ request()->route()->getPrefix() }}">
                 <x-the-button-delete class=" h-full w-full">Отменить</x-the-button-delete>
             </form>
         </div>

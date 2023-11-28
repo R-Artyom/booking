@@ -16,9 +16,10 @@ class DestroyController extends Controller
         // Удаление модели
         $booking->delete();
 
-        // Страница просмотра бронирований
-        $routeName = request()->prefix === '/admin' ? 'admin.bookings.index' : 'bookings.index';
+        // Предыдущая страница для перенаправления после удаления (или данные из сессии или предыдущая страница (если в сессии нет))
+        $previousUrl = request()->session()->get('pre_previous_url', url()->previous());
 
-        return redirect()->route($routeName);
+        // Страница просмотра бронирований c учетом пагинации, фильтров и сортировки
+        return redirect()->to($previousUrl);
     }
 }
