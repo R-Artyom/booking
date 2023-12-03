@@ -33,7 +33,7 @@ Route::group(['namespace' =>'Bookings'], function() {
     // Сохранение данных бронирования номера
     Route::post('/bookings', 'StoreController')->name('bookings.store');
     // Отмена бронирования
-    Route::post('/bookings/{booking}', 'DestroyController')->name('bookings.destroy');
+    Route::delete('/bookings/{booking}', 'DestroyController')->name('bookings.destroy');
 
     // Админ роуты
     Route::group(['prefix' =>'admin'], function () {

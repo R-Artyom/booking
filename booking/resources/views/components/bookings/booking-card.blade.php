@@ -17,6 +17,7 @@
             @endif
             <form class="ml-4" method="POST" action="{{ route('bookings.destroy', ['booking' => $booking]) }}">
                 @csrf
+                @method('DELETE')
                 <x-the-button-delete class=" h-full w-full">Отменить</x-the-button-delete>
             </form>
         </div>
