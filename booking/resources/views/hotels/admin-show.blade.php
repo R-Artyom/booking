@@ -1,0 +1,35 @@
+<x-app-layout>
+    <div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+
+        <div class="text-2xl text-center md:text-start font-bold mb-4">Отель</div>
+        <div class="flex flex-wrap bg-gray-50 mb-12">
+            <div class="w-full flex justify-start md:w-1/3 mb-8 md:mb-0">
+                <img class="h-full rounded-l-sm" src="{{ $hotel->poster_url }}" alt="Room Image">
+            </div>
+            <div class="w-full md:w-2/3 px-4">
+                <div class="text-2xl font-bold mb-2">{{ $hotel->name }}</div>
+                <div class="flex items-center mb-3">
+                    <x-gmdi-pin-drop-o class="w-5 h-5 mr-1 text-blue-700"/>
+                    {{ $hotel->address }}
+                </div>
+                <div class="mb-4">{{ $hotel->description }}</div>
+                <hr class="mb-4">
+                <div class="flex justify-end h-10">
+                    <x-link-button href="{{ route('admin.hotels.edit', ['hotel' => $hotel]) }}" class="mr-2">Редактировать</x-link-button>
+                    <x-link-button-delete href="{{ route('admin.hotels.edit', ['hotel' => $hotel]) }}">Удалить</x-link-button-delete>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-2xl text-center md:text-start font-bold mb-4">Номера отеля @if($rooms->isEmpty())отсутствуют@endif</div>
+        <div class="flex flex-col">
+            @if(!$rooms->isEmpty())
+                <div class="flex flex-col w-full lg:w-4/5 bg-gray-50">
+                    @foreach($rooms as $room)
+                        <x-rooms.admin-room-list-item :room="$room" class="mb-4"/>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </div>
+</x-app-layout>

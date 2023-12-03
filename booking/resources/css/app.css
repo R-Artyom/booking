@@ -318,3 +318,44 @@
     box-shadow: 0 0 0.25em 0.25em rgba(35, 102, 209, 0.2);
 }
 
+/* Малый эскиз изображения */
+.thumbnail-sm {
+    /*max-width: 100%;*/
+    /*max-height: 320px;*/
+    width: 480px;
+    height: 320px;
+    object-position: 50% 50%;
+    object-fit: contain;
+    /*object-fit: cover;*/
+}
+
+/* Кастомный placeholder полей формы, чтобы сделать знак '*' (поле обязательно
+ для заполнения) другого цвета */
+.placeholder-box {
+    display: block;
+    position: relative;
+}
+.placeholder-box input {
+    display: block;
+}
+.placeholder-box textarea {
+    display: block;
+}
+.placeholder-text {
+    display: none;
+    width: 100%;
+    line-height: 2.5;
+    position: absolute;
+    left: 0.75rem;
+    top: 0;
+    bottom: 0;
+    color: #b4b4b4;
+    cursor: text;
+    user-select: none;
+}
+.placeholder-box input:invalid + .placeholder-text {
+    display: block;
+}
+.placeholder-box textarea:invalid + .placeholder-text {
+    display: block;
+}

@@ -22,7 +22,11 @@
             </div>
         @endif
         <div class="flex justify-end">
-            <x-link-button href="{{ route('hotels.show', ['hotel' => $hotel]) }}">Подробнее</x-link-button>
+            @if(request()->route()->getPrefix() === '/admin')
+                <x-link-button href="{{ route('admin.hotels.show', ['hotel' => $hotel]) }}">Подробнее</x-link-button>
+            @else
+                <x-link-button href="{{ route('hotels.show', ['hotel' => $hotel]) }}">Подробнее</x-link-button>
+            @endif
         </div>
     </div>
 </div>

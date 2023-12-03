@@ -60,9 +60,9 @@
                                 <x-dropdown-link :href="route('admin.bookings.index')">
                                     Управление бронированиями
                                 </x-dropdown-link>
-{{--                                <x-dropdown-link :href="route('admin.hotels.index')">--}}
-{{--                                    Управление отелями--}}
-{{--                                </x-dropdown-link>--}}
+                                <x-dropdown-link :href="route('admin.hotels.index')">
+                                    Управление отелями
+                                </x-dropdown-link>
                             @endif
 
                             @if(Auth::user()->roles->containsStrict('name', 'admin'))

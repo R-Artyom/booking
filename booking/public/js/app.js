@@ -5352,6 +5352,26 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
+// Обновление изображения после загрузки файла
+var inputFile = document.getElementById('image');
+if (inputFile) {
+  var updateImage = function updateImage() {
+    // Изменить путь к отображаемому файлу, если инпут заполнен данными
+    if (this.files && this.files.length) {
+      preview.src = window.URL.createObjectURL(this.files[0]);
+      // Скрыть сообщение об ошибках загрузки файла, если оно есть
+      if (error.length) {
+        error[0].hidden = true;
+        noError[0].hidden = false;
+      }
+    }
+  };
+  var preview = document.getElementById('preview');
+  var error = document.getElementsByClassName('error');
+  var noError = document.getElementsByClassName('no-error');
+  inputFile.addEventListener('change', updateImage);
+}
+
 /***/ }),
 
 /***/ "./node_modules/lodash/lodash.js":

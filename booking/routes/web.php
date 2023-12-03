@@ -22,6 +22,18 @@ Route::group(['namespace' =>'Hotels'], function() {
     Route::get('/hotels', 'IndexController')->name('hotels.index');
     // Страница просмотра отеля
     Route::get('/hotels/{hotel}', 'ShowController')->name('hotels.show');
+
+    // Админ роуты
+    Route::group(['prefix' =>'admin'], function () {
+        // Форма редактирования данных отеля
+        Route::get('/hotels/{hotel}/edit', 'AdminEditController')->name('admin.hotels.edit');
+        // Редактирование данных отеля
+        Route::put('/hotels/{hotel}', 'AdminUpdateController')->name('admin.hotels.update');
+        // Страница управления отелями
+        Route::get('/hotels', 'AdminIndexController')->name('admin.hotels.index');
+        // Страница управления отелями
+        Route::get('/hotels/{hotel}', 'AdminShowController')->name('admin.hotels.show');
+    });
 });
 
 // Бронирования
