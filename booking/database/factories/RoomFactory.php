@@ -20,7 +20,9 @@ class RoomFactory extends Factory
             // Описание номера
             'description' => $this->faker->realText(rand(50, 500)),
             // Ссылка на изображение
-            'poster_url' => $this->faker->imageUrl(),
+//            'poster_url' => $this->faker->imageUrl(),
+//            'poster_url' => $this->faker->imageUrl(640, 480, null, true, 'Room'),
+            'poster_url' => 'https://via.placeholder.com/640x480.png/00A8B5?text=Room_' . $this->faker->word, // 00A8B5 - цвет
             // Площадь номера (32.00 ... 100.00 м2)
             'floor_area' => random_int(32, 100) . '.' . random_int(0, 9),
             // Тип

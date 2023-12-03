@@ -19,7 +19,9 @@ class HotelFactory extends Factory
             // Описание отеля
             'description' => $this->faker->realText(rand(50, 500)), // 50-500 символов
             // Ссылка на изображение
-            'poster_url' => $this->faker->imageUrl(),
+//            'poster_url' => $this->faker->imageUrl(),
+//            'poster_url' => $this->faker->imageUrl(640, 480, null, true, 'Hotel'),
+            'poster_url' => 'https://via.placeholder.com/640x480.png/005E82?text=Hotel_' . $this->faker->word, // 005E82 - цвет
             // Адрес
             'address' => $this->faker->address(),
             // Дата создания/обновления
