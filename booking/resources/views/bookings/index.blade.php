@@ -2,7 +2,7 @@
     <div class="pt-4 pb-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-gray-50 px-4 py-4 md:px-6 xl:px-8 w-full mb-4">
-                <form class="flex flex justify-between mb-3" method="GET" action="{{ url()->current() }}">
+                <form class="flex justify-between mb-3" method="GET" action="{{ url()->current() }}">
                     <div class="flex">
                         <div class="flex flex-col mr-3">
                             <label for="sort" class="text-gray-700" >Сортировка:</label>
