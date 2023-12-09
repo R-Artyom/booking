@@ -55,7 +55,7 @@ class AdminUpdateController extends Controller
             $hotel->description = $newData['description'];
         }
 
-        // Адрес отеля
+        // Ссылка на изображение
         if (!empty($newData['image'])) {
             // Если есть что загружать
             if ($request->hasFile('image')) {
@@ -68,7 +68,7 @@ class AdminUpdateController extends Controller
 
         // Если были какие-либо изменения в модели (атрибуты, которые были изменены с момента последней синхронизации (attributes VS original))
         if ($hotel->isDirty()) {
-            // * Обновление записи в таблице 'reminders'
+            // * Обновление записи в таблице 'hotels'
             $hotel->save();
         }
 
