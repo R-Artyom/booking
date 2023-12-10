@@ -33,9 +33,11 @@ Route::group(['namespace' =>'Hotels'], function() {
         Route::get('/hotels/{hotel}/edit', 'AdminEditController')->name('admin.hotels.edit');
         // Редактирование данных отеля
         Route::put('/hotels/{hotel}', 'AdminUpdateController')->name('admin.hotels.update');
+        // Удаление отеля
+        Route::delete('/hotels/{hotel}', 'AdminDestroyController')->name('admin.hotels.destroy');
         // Страница управления отелями
         Route::get('/hotels', 'AdminIndexController')->name('admin.hotels.index');
-        // Страница управления отелями
+        // Страница управления отелем
         Route::get('/hotels/{hotel}', 'AdminShowController')->name('admin.hotels.show');
     });
 });

@@ -15,8 +15,12 @@
                 <div class="mb-4">{{ $hotel->description }}</div>
                 <hr class="mb-4">
                 <div class="flex justify-end h-10">
-                    <x-link-button href="{{ route('admin.hotels.edit', ['hotel' => $hotel]) }}" class="mr-2">Редактировать</x-link-button>
-                    <x-link-button-delete href="{{ route('admin.hotels.edit', ['hotel' => $hotel]) }}">Удалить</x-link-button-delete>
+                    <x-link-button href="{{ route('admin.hotels.edit', ['hotel' => $hotel]) }}">Редактировать</x-link-button>
+                    <form class="ml-4" method="POST" action="{{ route('admin.hotels.destroy', ['hotel' => $hotel]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <x-the-button-delete class=" h-full w-full">Удалить</x-the-button-delete>
+                    </form>
                 </div>
             </div>
         </div>
