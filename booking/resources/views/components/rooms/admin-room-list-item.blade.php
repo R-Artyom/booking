@@ -12,9 +12,9 @@
                <span>•</span> {{ $room->floor_area }} м
             </div>
             <div>
-                    @foreach($room->facilities as $facility)
-                        <span>• {{ $facility->name }} </span>
-                    @endforeach
+                @foreach($room->facilities as $facility)
+                    <span>• {{ $facility->name }} </span>
+                @endforeach
             </div>
         </div>
         <hr>

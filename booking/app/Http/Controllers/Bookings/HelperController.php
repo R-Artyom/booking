@@ -27,15 +27,6 @@ class HelperController extends Controller
             'field' => 'started_at',
             'order' => 'desc',
         ],
-        // По фамилии пользователя
-        'user' => [
-            'field' => 'user',
-            'order' => 'asc',
-        ],
-        'userDesc' => [
-            'field' => 'user',
-            'order' => 'desc',
-        ],
     ];
 
     // Данные для фронта по умолчанию
