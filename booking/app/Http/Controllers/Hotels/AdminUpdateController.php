@@ -33,7 +33,7 @@ class AdminUpdateController extends Controller
             'description.required' => 'Описание отеля не может быть пустым',
             'description.string' => 'Описание отеля должно быть строкой',
             'image.image' => 'Загружаемый файл должен быть изображением',
-            'image.mimes' => 'Тип файла не поддерживается',
+            'image.mimetypes' => 'Тип файла не поддерживается',
             'image.max' => 'Размер файла не должен превышать ' . config('image.max_size') . ' КБ',
         ]);
 
