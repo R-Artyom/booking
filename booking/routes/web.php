@@ -25,6 +25,10 @@ Route::group(['namespace' =>'Hotels'], function() {
 
     // Админ роуты
     Route::group(['prefix' =>'admin'], function () {
+        // Форма создания отеля
+        Route::get('/hotels/create', 'AdminCreateController')->name('admin.hotels.create');
+        // Сохранение данных отеля
+        Route::post('/hotels', 'AdminStoreController')->name('admin.hotels.store');
         // Форма редактирования данных отеля
         Route::get('/hotels/{hotel}/edit', 'AdminEditController')->name('admin.hotels.edit');
         // Редактирование данных отеля
