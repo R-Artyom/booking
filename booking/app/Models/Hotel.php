@@ -24,7 +24,7 @@ class Hotel extends Model
     public function rooms()
     {
         // Связь с таблицей rooms - один ко многим
-        return $this->hasMany(Room::class, 'hotel_id', 'id');
+        return $this->hasMany(Room::class, 'hotel_id', 'id')->with(['bookings', 'facilities']);
     }
 
     /**
