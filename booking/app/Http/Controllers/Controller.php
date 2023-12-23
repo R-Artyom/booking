@@ -87,14 +87,14 @@ class Controller extends BaseController
                     // Если после удаления поля массив непустой
                     if (!empty($cutValidatedFilters)) {
                         // * Фильтрация коллекции
-                        $this->filterCollectionByIn($filteredCollect, $filters);
+                        $this->filterCollectionByIn($filteredCollect, $cutValidatedFilters);
                     }
                 }
 
                 // Если коллекция пустая
                 if ($filteredCollect->isEmpty()) {
                     $filterLists[$filtersField] = [];
-                    // Если выходное поле является массивом
+                // Если выходное поле является массивом
                 } elseif ($isArrayByFields[$filtersField]) {
                     // Если у элемента коллекции этот массив пустой, то в него необходимо добавить одно значение - null, для дальнейшего поиска на фронте по пустым значениям
                     $filteredCollect = $filteredCollect->map(function ($item) use ($filtersField) {
@@ -123,7 +123,6 @@ class Controller extends BaseController
                     }
                     $filterLists[$filtersField] = array_values(array_unique($filterLists[$filtersField]));
                 }
-
             }
         }
         // Опции фильтрации
