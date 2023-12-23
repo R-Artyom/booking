@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Facility;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,6 +23,37 @@ class CreateFacilitiesTable extends Migration
             // Уникальные индексы
             $table->unique('id');
         });
+
+        // Заполнение таблицы начальными значениями
+        $facilities = [
+            // Удобства отеля
+            ['name' => 'Бар'],
+            ['name' => 'Бассейн'],
+            ['name' => 'Бесплатный автрак'],
+            ['name' => 'Бильярд'],
+            ['name' => 'Гольф'],
+            ['name' => 'Парковка'],
+            ['name' => 'Спортзал'],
+            ['name' => 'Теннис'],
+            ['name' => 'Торговый автомат'],
+            ['name' => 'Шведский стол'],
+            // Удобства номера
+            ['name' => 'Кондиционер'],
+            ['name' => 'Кухонные принадлежности'],
+            ['name' => 'Микроволновка'],
+            ['name' => 'Полотенца'],
+            ['name' => 'Стиральная машина'],
+            ['name' => 'Телевизор'],
+            ['name' => 'Утюг'],
+            ['name' => 'Фен'],
+            ['name' => 'Холодильник'],
+            ['name' => 'Wi-Fi'],
+        ];
+        foreach ($facilities as $facility) {
+            $facility['created_at'] = date('Y-m-d H:i:s');
+            $facility['updated_at'] = date('Y-m-d H:i:s');
+        }
+        Facility::insert($facilities);
     }
 
     /**

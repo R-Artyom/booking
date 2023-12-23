@@ -17,7 +17,7 @@ class FacilityRoomFactory extends Factory
     {
         return [
             // Id удобства
-            'facility_id' => Facility::get()->random()->id,
+            'facility_id' => rand(11, 20),
             // Id номера
             'room_id' => Room::get()->random()->id,
             // Дата создания/обновления

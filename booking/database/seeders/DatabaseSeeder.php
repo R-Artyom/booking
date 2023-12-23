@@ -38,9 +38,6 @@ class DatabaseSeeder extends Seeder
         // Таблица 'bookings' (Бронирования)
         $this->call(BookingSeeder::class);
 
-        // Таблица 'facilities' (Удобства)
-        $this->call(FacilitySeeder::class);
-
         // Таблица 'facility_hotel' (Удобства отелей)
         $this->call(FacilityHotelSeeder::class);
 
