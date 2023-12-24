@@ -36,7 +36,7 @@ Route::group(['namespace' =>'Hotels'], function() {
         // Удаление отеля
         Route::delete('/hotels/{hotel}', 'AdminDestroyController')->name('admin.hotels.destroy');
         // Страница управления отелями
-        Route::get('/hotels', 'AdminIndexController')->name('admin.hotels.index');
+        Route::get('/hotels', 'IndexController')->name('admin.hotels.index');
         // Страница управления отелем
         Route::get('/hotels/{hotel}', 'AdminShowController')->name('admin.hotels.show');
     });
