@@ -31,19 +31,13 @@ class HelperController extends Controller
 
     // Данные для фронта по умолчанию
     public array $indexData = [
-        // Фильтры
-        'filters' => [
-            // Название отеля
-            'filterByHotelId' => 0,
-            // Удобства отеля
-            'filterByFacilityId' => 0,
-            // Удобства номера
-            'filterByRoomFacilityId' => 0,
-        ],
-        // Опции фильтрации
-        'filterOptions' => [],
-        // Сортировка по возрастанию названия отеля
-        'sort' => 'name',
+        // Фильтры:
+        // Название отеля
+        'filterByHotelId' => 0,
+        // Удобства отеля
+        'filterByFacilityId' => 0,
+        // Удобства номера
+        'filterByRoomFacilityId' => 0,
         // Цена от
         'filterByMinPrice' => null,
         // Цена до
@@ -52,6 +46,13 @@ class HelperController extends Controller
         'startDate' => null,
         // Дата выезда
         'endDate' => null,
+
+        // Опции фильтрации
+        'filterOptions' => [],
+
+        // Сортировка по возрастанию названия отеля
+        'sort' => 'name',
+
     ];
 
     // Данные для бэка по умолчанию
@@ -100,23 +101,20 @@ class HelperController extends Controller
 
         // Фильтрация по названию отеля
         if (!empty($requestArray['filterByHotelId'])) {
-            // Если такая фильтрация разрешена
             $this->backendIndexData['filters']['id'] = [(int)$requestArray['filterByHotelId']];
-            $this->indexData['filters']['filterByHotelId'] = (int)$requestArray['filterByHotelId'];
+            $this->indexData['filterByHotelId'] = (int)$requestArray['filterByHotelId'];
         }
 
         // Фильтрация по удобствам отеля
         if (!empty($requestArray['filterByFacilityId'])) {
-            // Если такая фильтрация разрешена
             $this->backendIndexData['filters']['facilityId'] = [(int)$requestArray['filterByFacilityId']];
-            $this->indexData['filters']['filterByFacilityId'] = (int)$requestArray['filterByFacilityId'];
+            $this->indexData['filterByFacilityId'] = (int)$requestArray['filterByFacilityId'];
         }
 
         // Фильтрация по удобствам номера
         if (!empty($requestArray['filterByRoomFacilityId'])) {
-            // Если такая фильтрация разрешена
             $this->backendIndexData['filters']['roomFacilityId'] = [(int)$requestArray['filterByRoomFacilityId']];
-            $this->indexData['filters']['filterByRoomFacilityId'] = (int)$requestArray['filterByRoomFacilityId'];
+            $this->indexData['filterByRoomFacilityId'] = (int)$requestArray['filterByRoomFacilityId'];
         }
 
         // * Сортировка

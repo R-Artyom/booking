@@ -38,20 +38,20 @@ class IndexController extends Controller
         $indexData = $helper->indexData;
 
         // Данные о выбранном отеле
-        $filterHotel = Hotel::where('id', $indexData['filters']['filterByHotelId'])->first();
-        $indexData['filters']['hotel'] = [
+        $filterHotel = Hotel::where('id', $indexData['filterByHotelId'])->first();
+        $indexData['selectedHotel'] = [
             'id' => $filterHotel->id ?? null,
             'name' => $filterHotel->name ?? null,
         ];
         // Данные о выбранном удобстве отеля
-        $filterFacility = Facility::where('id', $indexData['filters']['filterByFacilityId'])->first();
-        $indexData['filters']['facility'] = [
+        $filterFacility = Facility::where('id', $indexData['filterByFacilityId'])->first();
+        $indexData['selectedFacility'] = [
             'id' => $filterFacility->id ?? null,
             'name' => $filterFacility->name ?? null,
         ];
         // Данные о выбранном удобстве номера
-        $filterRoomFacility = Facility::where('id', $indexData['filters']['filterByRoomFacilityId'])->first();
-        $indexData['filters']['roomFacility'] = [
+        $filterRoomFacility = Facility::where('id', $indexData['filterByRoomFacilityId'])->first();
+        $indexData['selectedRoomFacility'] = [
             'id' => $filterRoomFacility->id ?? null,
             'name' => $filterRoomFacility->name ?? null,
         ];

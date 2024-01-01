@@ -19,15 +19,15 @@
         <div class="flex flex-col">
             <label for="filterByHotelId" class="text-gray-700">Отель:</label>
             <select name="filterByHotelId" id="filterByHotelId" class="py-1 pl-1 pr-10 h-8 w-48 border-gray-400 text-sm" onchange="this.form.submit()">
-                @if(!isset($indexData['filters']['hotel']['id']))
+                @if(!isset($indexData['selectedHotel']['id']))
                     <option value="0" selected disabled>Выберите отель</option>
                 @else
                     <option value="0">Очистить фильтр &#10060;</option>
-                    <option value="{{ $indexData['filters']['hotel']['id'] }}" @if($indexData['filters']['filterByHotelId'] === $indexData['filters']['hotel']['id']) selected @endif>{{ $indexData['filters']['hotel']['name'] }}</option>
+                    <option value="{{ $indexData['selectedHotel']['id'] }}" @if($indexData['filterByHotelId'] === $indexData['selectedHotel']['id']) selected @endif>{{ $indexData['selectedHotel']['name'] }}</option>
                 @endif
                 @if(isset($indexData['dictionaries']['hotel']))
                     @foreach($indexData['dictionaries']['hotel'] as $id => $name)
-                        @if($indexData['filters']['filterByHotelId'] !== $id)
+                        @if($indexData['filterByHotelId'] !== $id)
                             <option value="{{ $id }}">{{ $name }}</option>
                         @endif
                     @endforeach
@@ -39,15 +39,15 @@
         <div class="flex flex-col">
             <label for="filterByFacilityId" class="text-gray-700">Удобства отеля:</label>
             <select name="filterByFacilityId" id="filterByFacilityId" class="py-1 pl-1 pr-10 h-8 w-48 border-gray-400 text-sm" onchange="this.form.submit()">
-                @if(!isset($indexData['filters']['facility']['id']))
+                @if(!isset($indexData['selectedFacility']['id']))
                     <option value="0" selected disabled>Выберите удобство</option>
                 @else
                     <option value="0">Очистить фильтр &#10060;</option>
-                    <option value="{{ $indexData['filters']['facility']['id'] }}" @if($indexData['filters']['filterByFacilityId'] === $indexData['filters']['facility']['id']) selected @endif>{{ $indexData['filters']['facility']['name'] }}</option>
+                    <option value="{{ $indexData['selectedFacility']['id'] }}" @if($indexData['filterByFacilityId'] === $indexData['selectedFacility']['id']) selected @endif>{{ $indexData['selectedFacility']['name'] }}</option>
                 @endif
                 @if(isset($indexData['dictionaries']['facility']))
                     @foreach($indexData['dictionaries']['facility'] as $id => $name)
-                        @if($indexData['filters']['filterByFacilityId'] !== $id)
+                        @if($indexData['filterByFacilityId'] !== $id)
                             <option value="{{ $id }}">{{ $name }}</option>
                         @endif
                     @endforeach
@@ -59,15 +59,15 @@
         <div class="flex flex-col">
             <label for="filterByRoomFacilityId" class="text-gray-700">Удобства номера:</label>
             <select name="filterByRoomFacilityId" id="filterByRoomFacilityId" class="py-1 pl-1 pr-10 h-8 w-48 border-gray-400 text-sm" onchange="this.form.submit()">
-                @if(!isset($indexData['filters']['roomFacility']['id']))
+                @if(!isset($indexData['selectedRoomFacility']['id']))
                     <option value="0" selected disabled>Выберите удобство</option>
                 @else
                     <option value="0">Очистить фильтр &#10060;</option>
-                    <option value="{{ $indexData['filters']['roomFacility']['id'] }}" @if($indexData['filters']['filterByRoomFacilityId'] === $indexData['filters']['roomFacility']['id']) selected @endif>{{ $indexData['filters']['roomFacility']['name'] }}</option>
+                    <option value="{{ $indexData['selectedRoomFacility']['id'] }}" @if($indexData['filterByRoomFacilityId'] === $indexData['selectedRoomFacility']['id']) selected @endif>{{ $indexData['selectedRoomFacility']['name'] }}</option>
                 @endif
                 @if(isset($indexData['dictionaries']['roomFacility']))
                     @foreach($indexData['dictionaries']['roomFacility'] as $id => $name)
-                        @if($indexData['filters']['filterByRoomFacilityId'] !== $id)
+                        @if($indexData['filterByRoomFacilityId'] !== $id)
                             <option value="{{ $id }}">{{ $name }}</option>
                         @endif
                     @endforeach
