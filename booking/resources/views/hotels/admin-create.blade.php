@@ -20,7 +20,7 @@
                 <div>
                     <label class="placeholder-box">
                         <div class="flex justify-center mb-4">
-                            <img class="thumbnail-sm rounded-l-sm" id="preview" src="{{ asset('storage/hotels/default.jpg') }}" alt="Изображение к статье">
+                            <img class="thumbnail-sm rounded-l-sm" id="preview" src="{{ asset('storage/default.jpg') }}" alt="Изображение отеля">
                         </div>
                         <div>
                             <input class="shadow appearance-none border rounded-l-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="file" name="image" id="image" accept="{{ config('image.allowed_mime_types') }}">
