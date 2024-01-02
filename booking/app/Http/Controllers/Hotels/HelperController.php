@@ -35,9 +35,9 @@ class HelperController extends Controller
         // Название отеля
         'filterByHotelId' => 0,
         // Удобства отеля
-        'filterByFacilityId' => 0,
+        'filterByFacilityId' => null,
         // Удобства номера
-        'filterByRoomFacilityId' => 0,
+        'filterByRoomFacilityId' => null,
         // Цена от
         'filterByMinPrice' => null,
         // Цена до
@@ -105,16 +105,28 @@ class HelperController extends Controller
             $this->indexData['filterByHotelId'] = (int)$requestArray['filterByHotelId'];
         }
 
-        // Фильтрация по удобствам отеля
+        // Фильтрация по удобствам отеля (множественная)
         if (!empty($requestArray['filterByFacilityId'])) {
-            $this->backendIndexData['filters']['facilityId'] = [(int)$requestArray['filterByFacilityId']];
-            $this->indexData['filterByFacilityId'] = (int)$requestArray['filterByFacilityId'];
+            // Преобразование строки вида ("2,3,4") в массив
+            $arr = $this->convertFilterStringToArrow($requestArray['filterByFacilityId']);
+            // Список id выбранных удобств в виде массива, для фронта
+            $this->indexData['selectedFacility']['ids'] = $arr;
+            // Список id выбранных удобств в виде массива, для бэка
+            $this->backendIndexData['filters']['facilityId'] = $arr;
+            // Список id выбранных удобств в виде строки, для фронта
+            $this->indexData['filterByFacilityId'] = implode(",", $arr);
         }
 
-        // Фильтрация по удобствам номера
+        // Фильтрация по удобствам номера (множественная)
         if (!empty($requestArray['filterByRoomFacilityId'])) {
-            $this->backendIndexData['filters']['roomFacilityId'] = [(int)$requestArray['filterByRoomFacilityId']];
-            $this->indexData['filterByRoomFacilityId'] = (int)$requestArray['filterByRoomFacilityId'];
+            // Преобразование строки вида ("2,3,4") в массив
+            $arr = $this->convertFilterStringToArrow($requestArray['filterByRoomFacilityId']);
+            // Список id выбранных удобств в виде массива, для фронта
+            $this->indexData['selectedRoomFacility']['ids'] = $arr;
+            // Список id выбранных удобств в виде массива, для бэка
+            $this->backendIndexData['filters']['facilityRoomFacilityId'] = $arr;
+            // Список id выбранных удобств в виде строки, для фронта
+            $this->indexData['filterByRoomFacilityId'] = implode(",", $arr);
         }
 
         // * Сортировка
@@ -125,5 +137,25 @@ class HelperController extends Controller
                 $this->indexData['sort'] = $requestArray['sort'];
             }
         }
+    }
+
+    /**
+     * Преобразование строки фильтра в массив, для организации множественного селекта
+     *
+     * @param string $filter
+     * @return array|int[]
+     */
+    public function convertFilterStringToArrow(string $filter)
+    {
+        // Преобразование строки вида ("2,3,4") в массив
+        $arr = explode(",", $filter);
+        // Массив с id, который необходимо удалить из фильтра (повторный клик)
+        $needDelete = array_diff_key($arr, array_unique($arr));
+        // Удаление id из списка
+        $arr = array_diff($arr, $needDelete);
+        // Приведение типов
+        return array_map(function($value) {
+            return intval($value);
+        }, $arr);
     }
 }

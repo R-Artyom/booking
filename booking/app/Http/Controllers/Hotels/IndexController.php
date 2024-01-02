@@ -43,18 +43,30 @@ class IndexController extends Controller
             'id' => $filterHotel->id ?? null,
             'name' => $filterHotel->name ?? null,
         ];
-        // Данные о выбранном удобстве отеля
-        $filterFacility = Facility::where('id', $indexData['filterByFacilityId'])->first();
-        $indexData['selectedFacility'] = [
-            'id' => $filterFacility->id ?? null,
-            'name' => $filterFacility->name ?? null,
-        ];
-        // Данные о выбранном удобстве номера
-        $filterRoomFacility = Facility::where('id', $indexData['filterByRoomFacilityId'])->first();
-        $indexData['selectedRoomFacility'] = [
-            'id' => $filterRoomFacility->id ?? null,
-            'name' => $filterRoomFacility->name ?? null,
-        ];
+        // Данные о выбранных удобствах отеля
+        if (isset($indexData['selectedFacility']['ids'])) {
+            $selectedFacilities = Facility::whereIn('id', $indexData['selectedFacility']['ids'])->get();
+            foreach ($selectedFacilities as $selectedFacility) {
+                if (isset($selectedFacility->id)) {
+                    $indexData['selectedFacilities'][] = [
+                        'id' => $selectedFacility->id,
+                        'name' => $selectedFacility->name,
+                    ];
+                }
+            }
+        }
+        // Данные о выбранных удобствах номеров
+        if (isset($indexData['selectedRoomFacility']['ids'])) {
+            $selectedRoomFacilities = Facility::whereIn('id', $indexData['selectedRoomFacility']['ids'])->get();
+            foreach ($selectedRoomFacilities as $selectedRoomFacility) {
+                if (isset($selectedRoomFacility->id)) {
+                    $indexData['selectedRoomFacilities'][] = [
+                        'id' => $selectedRoomFacility->id,
+                        'name' => $selectedRoomFacility->name,
+                    ];
+                }
+            }
+        }
 
         // * Инициализация построителя запроса
 //        $hotelsBuilder = Hotel::with(['facilities', 'rooms'])->whereNotNull('id');
