@@ -17,6 +17,7 @@ class AdminStoreController extends Controller
             'address' => 'required|string|max:500',
             'description' => 'required|string',
             'image' => [
+                'required',
                 'image',
                 'mimetypes:' . config('image.allowed_mime_types'),
                 'max:'. config('image.max_size'),
@@ -31,6 +32,7 @@ class AdminStoreController extends Controller
             'address.max' => 'Адрес отеля не должно превышать 500 символов',
             'description.required' => 'Описание отеля не может быть пустым',
             'description.string' => 'Описание отеля должно быть строкой',
+            'image.required' => 'Загрузите изображение отеля',
             'image.image' => 'Загружаемый файл должен быть изображением',
             'image.mimetypes' => 'Тип файла не поддерживается',
             'image.max' => 'Размер файла не должен превышать ' . config('image.max_size') . ' КБ',
