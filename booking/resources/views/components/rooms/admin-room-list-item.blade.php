@@ -1,9 +1,9 @@
 <div {{ $attributes->merge(['class' => 'flex flex-col md:flex-row shadow-md']) }}>
-    <div class="h-full w-full md:w-2/5">
+    <div class="h-full w-full md:w-1/3">
         <div class="h-64 w-full bg-cover bg-center bg-no-repeat" style="background-image: url({{ $room->poster_url }})">
         </div>
     </div>
-    <div class="p-4 w-full md:w-3/5 flex flex-col justify-between">
+    <div class="p-4 w-full md:w-2/3 flex flex-col justify-between">
         <div class="pb-2">
             <div class="text-xl font-bold">
                 {{ $room->name }}
@@ -23,19 +23,16 @@
                 <span class="text-lg font-bold">{{ $room->total_price }} руб.</span>
                 <span>за {{ $room->total_days }} ночей</span>
             </div>
-            @if(auth()->check())
-                <form class="ml-4" method="POST" action="{{ route('bookings.store') }}">
+            <div class="flex justify-end h-10">
+                {{-- Кнопка "Редактировать" --}}
+                <x-link-button class="ml-4" href="{{ route('admin.rooms.edit', ['room' => $room]) }}">Редактировать</x-link-button>
+                {{-- Кнопка "Удалить" --}}
+                <form class="ml-4" method="POST" action="{{ route('admin.rooms.destroy', ['room' => $room]) }}">
                     @csrf
-                    <input type="hidden" name="started_at" min="{{ date('Y-m-d') }}" value="{{ request()->get('start_date', \Carbon\Carbon::now()->format('Y-m-d')) }}">
-                    <input type="hidden" name="finished_at" min="{{ date('Y-m-d') }}" value="{{ request()->get('end_date', \Carbon\Carbon::now()->addDay()->format('Y-m-d')) }}">
-                    <input type="hidden" name="room_id" value="{{ $room->id }}">
-                    <x-the-button class=" h-full w-full">{{ __('Book') }}</x-the-button>
+                    @method('DELETE')
+                    <x-the-button-delete class=" h-full w-full">Удалить</x-the-button-delete>
                 </form>
-            @else
-                <div class="ml-4 flex">
-                    <x-link-button href="{{ route('login') }}">{{ __('Book') }}</x-link-button>
-                </div>
-            @endif
+            </div>
         </div>
     </div>
 </div>

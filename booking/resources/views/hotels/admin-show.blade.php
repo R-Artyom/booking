@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
 
+        {{-- Отель --}}
         <div class="text-2xl text-center md:text-start font-bold mb-4">Отель</div>
         <div class="flex flex-wrap bg-gray-50 mb-12">
             <div class="w-full flex justify-start md:w-1/3 mb-8 md:mb-0">
@@ -25,10 +26,17 @@
             </div>
         </div>
 
-        <div class="text-2xl text-center md:text-start font-bold mb-4">Номера отеля @if($rooms->isEmpty())отсутствуют@endif</div>
+        {{-- Номера отеля --}}
+        <div class="flex justify-between mb-4">
+            <div class="text-2xl text-center md:text-start font-bold mb-2">Номера отеля @if($rooms->isEmpty())отсутствуют@endif</div>
+            {{-- Кнопка "Добавить номер" --}}
+            @if(request()->route()->getPrefix() === '/admin')
+                <x-link-button-add href="{{ route('admin.rooms.create', ['hotel' => $hotel]) }}">&#10010; Добавить номер</x-link-button-add>
+            @endif
+        </div>
         <div class="flex flex-col">
             @if(!$rooms->isEmpty())
-                <div class="flex flex-col w-full lg:w-4/5 bg-gray-50">
+                <div class="flex flex-col w-full bg-gray-50">
                     @foreach($rooms as $room)
                         <x-rooms.admin-room-list-item :room="$room" class="mb-4"/>
                     @endforeach

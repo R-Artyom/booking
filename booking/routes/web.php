@@ -42,6 +42,23 @@ Route::group(['namespace' =>'Hotels'], function() {
     });
 });
 
+// Номера отеля
+Route::group(['namespace' =>'Rooms'], function() {
+    // Админ роуты
+    Route::group(['prefix' =>'admin'], function () {
+        // Форма создания номера
+        Route::get('/hotels/{hotel}/rooms/create', 'AdminCreateController')->name('admin.rooms.create');
+        // Сохранение данных номера
+        Route::post('/rooms/{hotel}', 'AdminStoreController')->name('admin.rooms.store');
+        // Форма редактирования данных номера
+        Route::get('/rooms/{room}/edit', 'AdminEditController')->name('admin.rooms.edit');
+        // Редактирование данных номера
+        Route::put('/rooms/{room}', 'AdminUpdateController')->name('admin.rooms.update');
+        // Удаление номера
+        Route::delete('/rooms/{room}', 'AdminDestroyController')->name('admin.rooms.destroy');
+    });
+});
+
 // Бронирования
 Route::group(['namespace' =>'Bookings'], function() {
     // Страница списка бронирований
