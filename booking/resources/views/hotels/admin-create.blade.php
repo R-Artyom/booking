@@ -70,7 +70,7 @@
                 <div>
                     <label class="placeholder-box">
                         <textarea class="shadow appearance-none border rounded-l-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="10" name="description" required>{{ old('description') }}</textarea>
-                        <span class="placeholder-text">Введите опсание отеля <strong class="text-red-600">*</strong></span>
+                        <span class="placeholder-text">Введите описание отеля <strong class="text-red-600">*</strong></span>
                     </label>
                     @error('description')
                     <div class="text-sm text-red-600 mb-2">{{ $message }}</div>
