@@ -3,7 +3,7 @@
 
         {{-- Отель --}}
         <div class="text-2xl text-center md:text-start font-bold mb-4">Отель</div>
-        <div class="flex flex-wrap bg-gray-50 mb-12 shadow-md">
+        <div class="flex flex-wrap bg-gray-50 shadow-md mb-12">
             <div class="w-full flex justify-start md:w-1/3 mb-8 md:mb-0">
                 <img class="h-full rounded-l-sm" src="{{ $hotel->poster_url }}" alt="Room Image">
             </div>
