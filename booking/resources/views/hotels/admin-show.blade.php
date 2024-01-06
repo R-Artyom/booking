@@ -3,7 +3,7 @@
 
         {{-- Отель --}}
         <div class="text-2xl text-center md:text-start font-bold mb-4">Отель</div>
-        <div class="flex flex-wrap bg-gray-50 mb-12">
+        <div class="flex flex-wrap bg-gray-50 mb-12 shadow-md">
             <div class="w-full flex justify-start md:w-1/3 mb-8 md:mb-0">
                 <img class="h-full rounded-l-sm" src="{{ $hotel->poster_url }}" alt="Room Image">
             </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="flex flex-col">
             @if(!$rooms->isEmpty())
-                <div class="flex flex-col w-full bg-gray-50">
+                <div class="flex flex-col w-full">
                     @foreach($rooms as $room)
                         <x-rooms.admin-room-list-item :room="$room" class="mb-4"/>
                     @endforeach

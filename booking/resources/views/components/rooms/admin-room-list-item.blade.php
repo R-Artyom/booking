@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'flex flex-col md:flex-row shadow-md']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col md:flex-row shadow-md bg-gray-50']) }}>
     <div class="h-full w-full md:w-1/3">
         <div class="h-64 w-full bg-cover bg-center bg-no-repeat" style="background-image: url({{ $room->poster_url }})">
         </div>
