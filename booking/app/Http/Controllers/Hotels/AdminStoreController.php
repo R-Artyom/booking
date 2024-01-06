@@ -22,6 +22,9 @@ class AdminStoreController extends Controller
                 'mimetypes:' . config('image.allowed_mime_types'),
                 'max:'. config('image.max_size'),
             ],
+            // Удобства отеля
+            'checkedFacilities' => 'array',
+            'checkedFacilities.*' => 'distinct|integer|numeric|exists:facilities,id',
         ],
         [
             'name.required' => 'Название отеля не может быть пустым',
@@ -36,6 +39,11 @@ class AdminStoreController extends Controller
             'image.image' => 'Загружаемый файл должен быть изображением',
             'image.mimetypes' => 'Тип файла не поддерживается',
             'image.max' => 'Размер файла не должен превышать ' . config('image.max_size') . ' КБ',
+            // Удобства отеля
+            'checkedFacilities.*.distinct' => 'В списке удобств не должно быть повторяющихся значений',
+            'checkedFacilities.*.integer' => 'Номер удобства должен иметь корректное целочисленное значение',
+            'checkedFacilities.*.numeric' => 'Номер удобства должен иметь корректное числовое или дробное значение',
+            'checkedFacilities.*.exists' => 'Удобства с таким номером нет в списке разрешенных',
         ]);
 
         $hotel = new Hotel;
@@ -68,6 +76,12 @@ class AdminStoreController extends Controller
 
         // Создание отеля
         $hotel->save();
+
+        // Удобства отеля
+        if (isset($newData['checkedFacilities'])) {
+            // Добавить удобства отеля в сводной таблице 'facility_room'
+            $hotel->facilities()->attach($newData['checkedFacilities']);
+        }
 
         // Страница просмотра отеля
         return redirect()->route('admin.hotels.show', compact('hotel'));

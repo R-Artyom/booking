@@ -12,12 +12,14 @@ class Hotel extends Model
     protected $table = 'hotels';
     // Снять защиту массового заполнения модели
     protected $guarded = false;
+    // Постоянная жадная загрузка
+    protected $with = ['facilities'];
 
     // Удобства
     public function facilities()
     {
-        // Связь с таблицей facilities - многие ко многим (через сводную таблицу)
-        return $this->belongsToMany(Facility::class, 'facility_hotel', 'hotel_id','facility_id');
+        // Связь с таблицей facilities - многие ко многим (через сводную таблицу), автозапись меток времени
+        return $this->belongsToMany(Facility::class, 'facility_hotel', 'hotel_id','facility_id')->withTimestamps();
     }
 
     // Номера, которые есть у отеля

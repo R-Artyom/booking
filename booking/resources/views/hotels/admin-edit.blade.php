@@ -80,6 +80,30 @@
                     @enderror
                 </div>
 
+                {{-- Удобства --}}
+                <p class="text-gray-700 text-base font-bold">
+                    <label for="facility"><strong>Удобства:</strong></label>
+                </p>
+                <div>
+                    @foreach($facilities as $facility)
+                        <label for="{{ 'facility' . $facility->id }}" class="inline-flex items-center">
+                            <input
+                                type="checkbox"
+                                id="{{ 'facility' . $facility->id }}"
+                                name="checkedFacilities[{{ $facility->id }}]"
+                                value="{{ $facility->id }}"
+                                @if(isset($checkedFacilities[$facility->id]) || isset(old('checkedFacilities')[$facility->id]))
+                                    checked
+                                @endif
+                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mr-2">
+                            <span class="mr-4 text-sm text-gray-600">{{ $facility->name }}</span>
+                        </label>
+                        @error('checkedFacilities.' . $facility->id)
+                            <div class="text-sm text-red-600 mb-2">{{ $message }}</div>
+                        @enderror
+                    @endforeach
+                </div>
+
                 <div class="flex items-center justify-end mt-4">
                     <x-button class="ml-4" formnovalidate>
                         Сохранить изменения
