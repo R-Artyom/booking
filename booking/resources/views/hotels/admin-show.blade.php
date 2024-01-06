@@ -14,6 +14,11 @@
                     {{ $hotel->address }}
                 </div>
                 <div class="mb-4">{{ $hotel->description }}</div>
+                <div>
+                    @foreach($hotel->facilities as $facility)
+                        <span>• {{ $facility->name }} </span>
+                    @endforeach
+                </div>
                 <hr class="mb-4">
                 <div class="flex justify-end h-10">
                     <x-link-button href="{{ route('admin.hotels.edit', ['hotel' => $hotel]) }}">Редактировать</x-link-button>
