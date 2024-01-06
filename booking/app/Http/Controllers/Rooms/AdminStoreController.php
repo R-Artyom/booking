@@ -106,16 +106,8 @@ class AdminStoreController extends Controller
 
         // Удобства отеля
         if (isset($newData['checkedFacilities'])) {
-            $insertData = [];
-            foreach ($newData['checkedFacilities'] as $facilityId) {
-                $insertData[] = [
-                    'facility_id' => $facilityId,
-                    'room_id' => $room->id,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s'),
-                ];
-            }
-            FacilityRoom::insert($insertData);
+            // Добавить удобства номера в сводной таблице 'facility_room'
+            $room->facilities()->attach($newData['checkedFacilities']);
         }
 
         // Страница просмотра отеля, к которому привязался номер

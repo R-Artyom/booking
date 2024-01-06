@@ -12,6 +12,8 @@ class Room extends Model
     protected $table = 'rooms';
     // Снять защиту массового заполнения модели
     protected $guarded = false;
+    // Постоянная жадная загрузка
+    protected $with = ['facilities'];
 
     // Отель
     public function hotel()
@@ -24,7 +26,7 @@ class Room extends Model
     public function facilities()
     {
         // Связь номеров с удобствами - многие ко многим (через сводную таблицу)
-        return $this->belongsToMany(Facility::class, 'facility_room', 'room_id','facility_id');
+        return $this->belongsToMany(Facility::class, 'facility_room', 'room_id','facility_id')->withTimestamps();
     }
 
     // Бронирования
