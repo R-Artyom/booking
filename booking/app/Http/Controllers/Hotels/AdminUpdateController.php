@@ -86,11 +86,8 @@ class AdminUpdateController extends Controller
             Storage::disk('public')->delete($originalPosterUrl);
         }
 
-        // Удобства отеля
-        if (isset($newData['checkedFacilities'])) {
-            // Синхронизировать удобства отеля в сводной таблице 'facility_hotel' (удалить ненужные, добавить нужные)
-            $hotel->facilities()->sync($newData['checkedFacilities']);
-        }
+        // Синхронизировать удобства отеля в сводной таблице 'facility_hotel' (удалить ненужные, добавить нужные)
+        $hotel->facilities()->sync($newData['checkedFacilities'] ?? []);
 
         // Страница редактирования отеля
         return back()->withInput()->with('success', 'Данные успешно отредактированы!');

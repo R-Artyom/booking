@@ -107,11 +107,8 @@ class AdminUpdateController extends Controller
             Storage::disk('public')->delete($originalPosterUrl);
         }
 
-        // Удобства номера отеля
-        if (isset($newData['checkedFacilities'])) {
-            // Синхронизировать удобства номера в сводной таблице 'facility_room' (удалить ненужные, добавить нужные)
-            $room->facilities()->sync($newData['checkedFacilities']);
-        }
+        // Синхронизировать удобства номера в сводной таблице 'facility_room' (удалить ненужные, добавить нужные)
+        $room->facilities()->sync($newData['checkedFacilities'] ?? []);
 
         // Страница редактирования номера отеля
         return back()->withInput()->with('success', 'Данные успешно отредактированы!');
