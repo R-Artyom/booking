@@ -101,7 +101,10 @@
                     @endforeach
                 </div>
 
-                <div class="flex items-center justify-end mt-4">
+                <div class="flex items-center justify-between mt-4">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ url()->previous() }}">
+                        &#8701; Отмена
+                    </a>
                     <x-button class="ml-4" formnovalidate>
                         Создать
                     </x-button>
