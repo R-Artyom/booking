@@ -24,6 +24,9 @@ class AdminUpdateController extends Controller
                 'mimetypes:' . config('image.allowed_mime_types'),
                 'max:'. config('image.max_size'),
             ],
+            // Удобства номера
+            'checkedFacilities' => 'array',
+            'checkedFacilities.*' => 'distinct|integer|numeric|exists:facilities,id',
         ],
         [
             // Название
@@ -51,6 +54,11 @@ class AdminUpdateController extends Controller
             'image.image' => 'Загружаемый файл должен быть изображением',
             'image.mimetypes' => 'Тип файла не поддерживается',
             'image.max' => 'Размер файла не должен превышать ' . config('image.max_size') . ' КБ',
+            // Удобства номера
+            'checkedFacilities.*.distinct' => 'В списке удобств не должно быть повторяющихся значений',
+            'checkedFacilities.*.integer' => 'Номер удобства должен иметь корректное целочисленное значение',
+            'checkedFacilities.*.numeric' => 'Номер удобства должен иметь корректное числовое или дробное значение',
+            'checkedFacilities.*.exists' => 'Удобства с таким номером нет в списке разрешенных',
         ]);
 
         // Ссылка на изображение в обход аксессора
@@ -97,6 +105,12 @@ class AdminUpdateController extends Controller
         if ($room->wasChanged('poster_url')) {
             // Удалить старое изображение
             Storage::disk('public')->delete($originalPosterUrl);
+        }
+
+        // Удобства отеля
+        if (isset($newData['checkedFacilities'])) {
+            // Синхронизировать удобства номера в сводной таблице 'facility_room' (удалить ненужные, добавить нужные)
+            $room->facilities()->sync($newData['checkedFacilities']);
         }
 
         // Страница редактирования номера отеля
