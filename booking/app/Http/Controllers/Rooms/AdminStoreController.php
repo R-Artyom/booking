@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Rooms;
 
 use App\Http\Controllers\Controller;
+use App\Models\FacilityRoom;
 use App\Models\Hotel;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
 class AdminStoreController extends Controller
 {
-    // Создание отеля
+    // Создание номера отеля
     public function __invoke(Request $request, Hotel $hotel)
     {
         // Валидация
@@ -25,6 +26,9 @@ class AdminStoreController extends Controller
                 'mimetypes:' . config('image.allowed_mime_types'),
                 'max:'. config('image.max_size'),
             ],
+            // Удобства номера
+            'checkedFacilities' => 'array',
+            'checkedFacilities.*' => 'distinct|integer|numeric|exists:facilities,id',
         ],
         [
             // Название
@@ -53,6 +57,11 @@ class AdminStoreController extends Controller
             'image.image' => 'Загружаемый файл должен быть изображением',
             'image.mimetypes' => 'Тип файла не поддерживается',
             'image.max' => 'Размер файла не должен превышать ' . config('image.max_size') . ' КБ',
+            // Удобства номера
+            'checkedFacilities.*.distinct' => 'В списке удобств не должно быть повторяющихся значений',
+            'checkedFacilities.*.integer' => 'Номер удобства должен иметь корректное целочисленное значение',
+            'checkedFacilities.*.numeric' => 'Номер удобства должен иметь корректное числовое или дробное значение',
+            'checkedFacilities.*.exists' => 'Удобства с таким номером нет в списке разрешенных',
         ]);
 
         // Модель номера
@@ -92,10 +101,24 @@ class AdminStoreController extends Controller
             }
         }
 
-        // Создание отеля
+        // Создание номера отеля
         $room->save();
 
-        // Страница просмотра отеля
+        // Удобства отеля
+        if (isset($newData['checkedFacilities'])) {
+            $insertData = [];
+            foreach ($newData['checkedFacilities'] as $facilityId) {
+                $insertData[] = [
+                    'facility_id' => $facilityId,
+                    'room_id' => $room->id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+            }
+            FacilityRoom::insert($insertData);
+        }
+
+        // Страница просмотра отеля, к которому привязался номер
         return redirect()->route('admin.hotels.show', compact('hotel'));
     }
 }
