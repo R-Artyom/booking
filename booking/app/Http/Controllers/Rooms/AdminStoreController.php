@@ -103,7 +103,7 @@ class AdminStoreController extends Controller
         // Создание номера отеля
         $room->save();
 
-        // Удобства отеля
+        // Удобства номера отеля
         if (isset($newData['checkedFacilities'])) {
             // Добавить удобства номера в сводной таблице 'facility_room'
             $room->facilities()->attach($newData['checkedFacilities']);
