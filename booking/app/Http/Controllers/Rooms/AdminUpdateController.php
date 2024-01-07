@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminUpdateController extends Controller
 {
-    // Отмена бронирования
+    // Редактирование данных номера отеля
     public function __invoke(Request $request, Room $room)
     {
         // Валидация

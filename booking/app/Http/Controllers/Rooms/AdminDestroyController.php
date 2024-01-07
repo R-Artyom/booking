@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminDestroyController extends Controller
 {
-    // Удаление отеля
+    // Удаление номера отеля
     public function __invoke(Room $room)
     {
         // Ссылка на изображение в обход аксессора

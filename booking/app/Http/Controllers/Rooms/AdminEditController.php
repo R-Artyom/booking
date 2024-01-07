@@ -8,7 +8,7 @@ use App\Models\Room;
 
 class AdminEditController extends Controller
 {
-    // Форма редактирования отеля
+    // Форма редактирования номера отеля
     public function __invoke(Room $room)
     {
         // Добавить данные о всех удобствах
@@ -23,7 +23,7 @@ class AdminEditController extends Controller
             $checkedFacilities[$facility->id] = $facility->id;
         }
 
-        // Шаблон редактирования отеля
+        // Шаблон редактирования номера отеля
         return view('rooms.admin-edit', compact('room', 'facilities', 'checkedFacilities'));
     }
 }
