@@ -55,8 +55,8 @@ class User extends Authenticatable
     // Роли пользователя
     public function roles()
     {
-        // Связь с таблицей roles - многие ко многим (через сводную таблицу)
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id','name');
+        // Связь с таблицей roles - многие ко многим (через сводную таблицу), автозапись меток времени
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id','name')->withTimestamps();
     }
 
     // Отели пользователя

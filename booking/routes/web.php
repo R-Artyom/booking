@@ -76,6 +76,17 @@ Route::group(['namespace' =>'Facilities'], function() {
     });
 });
 
+// Пользователи
+Route::group(['namespace' =>'Users'], function() {
+    // Админ роуты
+    Route::group(['prefix' =>'admin'], function () {
+        // Страница списка пользователей
+        Route::get('/users', 'AdminIndexController')->name('admin.users.index');
+        // Редактирование данных пользователя
+        Route::put('/users/{user}', 'AdminUpdateController')->name('admin.users.update');
+    });
+});
+
 // Бронирования
 Route::group(['namespace' =>'Bookings'], function() {
     // Страница списка бронирований

@@ -69,9 +69,9 @@
                             @endif
 
                             @if(Auth::user()->roles->containsStrict('name', 'admin'))
-{{--                                <x-dropdown-link :href="route('admin.users.index')">--}}
-{{--                                    Управление пользователями--}}
-{{--                                </x-dropdown-link>--}}
+                                <x-dropdown-link :href="route('admin.users.index')">
+                                    Пользователи
+                                </x-dropdown-link>
                             @endif
 
                             <form method="POST" action="{{ route('logout') }}">
