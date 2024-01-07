@@ -59,6 +59,23 @@ Route::group(['namespace' =>'Rooms'], function() {
     });
 });
 
+// Удобства
+Route::group(['namespace' =>'Facilities'], function() {
+    // Админ роуты
+    Route::group(['prefix' =>'admin'], function () {
+        // Страница списка удобств
+        Route::get('/facilities', 'AdminIndexController')->name('admin.facilities.index');
+        // Форма создания удобства
+        Route::get('/facilities/create', 'AdminCreateController')->name('admin.facilities.create');
+        // Сохранение данных удобства
+        Route::post('/facilities', 'AdminStoreController')->name('admin.facilities.store');
+        // Форма редактирования данных удобства
+        Route::get('/facilities/{facility}/edit', 'AdminEditController')->name('admin.facilities.edit');
+        // Редактирование данных удобства
+        Route::put('/facilities/{facility}', 'AdminUpdateController')->name('admin.facilities.update');
+    });
+});
+
 // Бронирования
 Route::group(['namespace' =>'Bookings'], function() {
     // Страница списка бронирований
