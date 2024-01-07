@@ -7,7 +7,7 @@
         {{-- Сортировка --}}
         <div class="flex flex-col">
             <label for="sort" class="text-gray-700">Сортировка:</label>
-            <select name="sort" id="sort" class="py-1 pl-1 pr-10 py-1 pl-1 pr-10 h-8 w-48 border-gray-400 text-sm" onchange="this.form.submit()">
+            <select name="sort" id="sort" class="py-1 pl-1 pr-10 h-8 w-48 border-gray-400 text-sm" onchange="this.form.submit()">
                 <option value="name" @if($indexData['sort'] === 'name') selected @endif>По возрастанию названия отеля</option>
                 <option value="nameDesc" @if($indexData['sort'] === 'nameDesc') selected @endif>По убыванию названия отеля</option>
                 <option value="address" @if($indexData['sort'] === 'address') selected @endif>По возрастанию адреса отеля</option>
