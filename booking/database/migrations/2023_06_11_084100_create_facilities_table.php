@@ -49,10 +49,13 @@ class CreateFacilitiesTable extends Migration
             ['name' => 'Холодильник'],
             ['name' => 'Wi-Fi'],
         ];
-        foreach ($facilities as $facility) {
-            $facility['created_at'] = date('Y-m-d H:i:s');
-            $facility['updated_at'] = date('Y-m-d H:i:s');
-        }
+        // Добавление временных меток
+        $facilities = array_map(function($value) {
+            $value['created_at'] = date('Y-m-d H:i:s');
+            $value['updated_at'] = date('Y-m-d H:i:s');
+            return $value;
+        }, $facilities);
+
         Facility::insert($facilities);
     }
 
