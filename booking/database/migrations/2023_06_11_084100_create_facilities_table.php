@@ -29,7 +29,7 @@ class CreateFacilitiesTable extends Migration
             // Удобства отеля
             ['name' => 'Бар'],
             ['name' => 'Бассейн'],
-            ['name' => 'Бесплатный автрак'],
+            ['name' => 'Бесплатный завтрак'],
             ['name' => 'Бильярд'],
             ['name' => 'Гольф'],
             ['name' => 'Парковка'],
