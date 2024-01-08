@@ -33,5 +33,10 @@
                 </tbody>
             </table>
         </div>
+
+        {{-- Пагинация --}}
+        <div class="mt-4">
+            {{ $facilities->onEachSide(1)->withQueryString()->links() }}
+        </div>
     </div>
 </x-app-layout>

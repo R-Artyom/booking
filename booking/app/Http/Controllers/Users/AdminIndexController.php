@@ -19,8 +19,8 @@ class AdminIndexController extends Controller
                 'email',
                 'created_at'
             )
-            ->orderBy('id', 'desc')
-            ->get();
+            ->orderBy('id', 'asc')
+            ->paginate(50);
 
         // Шаблон
         return view('users.admin-index', compact('users'));

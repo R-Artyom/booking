@@ -15,7 +15,7 @@ class AdminIndexController extends Controller
         $facilities = Facility::query()
             ->select('id', 'name', 'created_at')
             ->orderBy('id', 'desc')
-            ->get();
+            ->paginate(50);
 
         // Шаблон
         return view('facilities.admin-index', compact('facilities'));

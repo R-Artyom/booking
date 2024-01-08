@@ -46,5 +46,10 @@
                 </tbody>
             </table>
         </div>
+
+        {{-- Пагинация --}}
+        <div class="mt-4">
+            {{ $users->onEachSide(1)->withQueryString()->links() }}
+        </div>
     </div>
 </x-app-layout>
