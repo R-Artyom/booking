@@ -1,5 +1,7 @@
 <x-app-layout>
     <div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+        <div class="text-2xl text-center md:text-start font-bold mb-4">Пользователи</div>
+
         {{-- Таблица с пользователями --}}
         <div class="shadow overflow-hidden rounded border-b border-gray-200">
             <table class="min-w-full bg-white">
