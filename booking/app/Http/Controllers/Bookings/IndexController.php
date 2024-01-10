@@ -25,7 +25,7 @@ class IndexController extends Controller
         'hotelId' => 'hotel', // Отель
     ];
 
-    // Список бронирований Админ панели
+    // Список бронирований
     public function __invoke(Request $request)
     {
         // Проверка прав пользователя
