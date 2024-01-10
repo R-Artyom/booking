@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
 
 class BookingPolicy
 {
@@ -33,9 +32,9 @@ class BookingPolicy
      *
      * @param User $user
      * @param Booking $booking
-     * @return Response|bool
+     * @return bool
      */
-    public function view(User $user, Booking $booking)
+    public function view(User $user, Booking $booking): bool
     {
         // * Просмотр бронирования
         $isOwner = $booking->user_id === $user->id;
