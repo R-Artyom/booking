@@ -11,6 +11,9 @@ class AdminStoreController extends Controller
     // Создание отеля
     public function __invoke(Request $request)
     {
+        // Проверка прав пользователя
+        $this->authorize('create', Hotel::class);
+
         // Валидация
         $newData = $request->validate([
             'name' => 'required|string|max:100',
@@ -81,6 +84,12 @@ class AdminStoreController extends Controller
         if (isset($newData['checkedFacilities'])) {
             // Добавить удобства отеля в сводной таблице 'facility_room'
             $hotel->facilities()->attach($newData['checkedFacilities']);
+        }
+
+        // Если создатель отеля - менеджер, то отель закрепляется за ним
+        if (auth()->user()->roles->containsStrict('name', 'manager')) {
+            // Добавить отель в сводной таблице 'hotel_user'
+            auth()->user()->hotels()->attach([$hotel->id]);
         }
 
         // Страница просмотра отеля

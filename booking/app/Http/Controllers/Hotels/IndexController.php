@@ -32,6 +32,18 @@ class IndexController extends Controller
     // Список отелей
     public function __invoke(Request $request)
     {
+        // Если это панель администратора
+        if ($request->route()->getPrefix() === '/admin') {
+            // Проверка прав пользователя
+            $this->authorize('viewAny', Hotel::class);
+
+            // У менеджера отеля доступ есть только к своим отелям (у админа - к любому отелю)
+            if (auth()->user()->roles->containsStrict('name', 'manager')) {
+                // Список id отелей менеджера
+                $managerHotelIds = auth()->user()->hotels->pluck('id')->toArray();
+            }
+        }
+
         // Сформировать данные для фронта и для бэка
         $helper = (new HelperController());
         $helper->setIndexData($request);
@@ -69,40 +81,48 @@ class IndexController extends Controller
         }
 
         // * Инициализация построителя запроса
-//        $hotelsBuilder = Hotel::with(['facilities', 'rooms'])->whereNotNull('id');
-        // Фильтрация по цене
-        $min = $indexData['filterByMinPrice'];
-        $max = $indexData['filterByMaxPrice'];
-        $startDay = $indexData['startDate'];
-        $endDay = $indexData['endDate'];
-        $hotelsBuilder = Hotel::whereHas('rooms', function (Builder $query) use ($min, $max, $startDay, $endDay) {
-            // Если пришел фильтр только по максимальной цене
-            if (!isset($min) && isset($max)) {
-                $query->where('price', '<=', $max);
-            // Если пришел фильтр только по минимальной цене
-            } elseif (isset($min) && !isset($max)) {
-                $query->where('price', '>=', $min);
-            // Если пришел фильтр и по минимальной и по максимальной цене
-            } elseif (isset($min) && isset($max)) {
-                $query->whereBetween('price', [$min, $max]);
-            }
-            $query->where(function ($query) use ($startDay, $endDay) {
-                $query->whereHas('bookings', function (Builder $query) use ($startDay, $endDay) {
-                    // Если пришла только дата выезда
-                    if (!isset($startDay) && isset($endDay)) {
-                        $query->where('started_at', '>=', $endDay);
-                    // Если пришла дата заезда
-                    } elseif (isset($startDay) && !isset($endDay)) {
-                        $query->where('finished_at', '<=', $startDay);
-                    // Если пришли обе даты
-                    } elseif (isset($startDay) && isset($endDay)) {
-                        $query->where('started_at', '>=', $endDay)
-                            ->orWhere('finished_at', '<=', $startDay);
-                    }
+        $hotelsBuilder = Hotel::query();
+
+        // Фильтрация по менеджеру
+        if (isset($managerHotelIds)) {
+            $hotelsBuilder->whereIn('id', $managerHotelIds);
+        }
+
+        // Фильтрация по цене (отели без номеров показывать только в админпанели)
+        if (($request->route()->getPrefix() !== '/admin') || isset($indexData['filterByMinPrice']) || isset($indexData['filterByMaxPrice'])) {
+            $min = $indexData['filterByMinPrice'];
+            $max = $indexData['filterByMaxPrice'];
+            $startDay = $indexData['startDate'];
+            $endDay = $indexData['endDate'];
+            $hotelsBuilder->whereHas('rooms', function (Builder $query) use ($min, $max, $startDay, $endDay) {
+                // Если пришел фильтр только по максимальной цене
+                if (!isset($min) && isset($max)) {
+                    $query->where('price', '<=', $max);
+                    // Если пришел фильтр только по минимальной цене
+                } elseif (isset($min) && !isset($max)) {
+                    $query->where('price', '>=', $min);
+                    // Если пришел фильтр и по минимальной и по максимальной цене
+                } elseif (isset($min) && isset($max)) {
+                    $query->whereBetween('price', [$min, $max]);
+                }
+                $query->where(function ($query) use ($startDay, $endDay) {
+                    $query->whereHas('bookings', function (Builder $query) use ($startDay, $endDay) {
+                        // Если пришла только дата выезда
+                        if (!isset($startDay) && isset($endDay)) {
+                            $query->where('started_at', '>=', $endDay);
+                            // Если пришла дата заезда
+                        } elseif (isset($startDay) && !isset($endDay)) {
+                            $query->where('finished_at', '<=', $startDay);
+                            // Если пришли обе даты
+                        } elseif (isset($startDay) && isset($endDay)) {
+                            $query->where('started_at', '>=', $endDay)
+                                ->orWhere('finished_at', '<=', $startDay);
+                        }
+                    });
+                    $query->orDoesntHave('bookings');
                 });
-                $query->orDoesntHave('bookings');
             });
-        });
+        }
 
         // * Поиск опций фильтрации и словарей для select
         $hotelsCollect = $hotelsBuilder->get();

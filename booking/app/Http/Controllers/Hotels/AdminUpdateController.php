@@ -12,6 +12,9 @@ class AdminUpdateController extends Controller
     // Отмена бронирования
     public function __invoke(Request $request, Hotel $hotel)
     {
+        // Проверка прав пользователя
+        $this->authorize('update', $hotel);
+
         // Валидация
         $newData = $request->validate([
             'name' => 'required|string|max:100',

@@ -10,6 +10,9 @@ class AdminShowController extends Controller
     // Просмотр отеля админ панели
     public function __invoke(Hotel $hotel)
     {
+        // Проверка прав пользователя
+        $this->authorize('view', $hotel);
+
         // Номера отеля
         $rooms = $hotel->rooms()->with('bookings')->get();
 

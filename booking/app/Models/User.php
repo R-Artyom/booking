@@ -62,7 +62,7 @@ class User extends Authenticatable
     // Отели пользователя
     public function hotels()
     {
-        // Связь с таблицей hotels - многие ко многим (через сводную таблицу)
-        return $this->belongsToMany(Hotel::class, 'hotel_user', 'user_id','hotel_id');
+        // Связь с таблицей hotels - многие ко многим (через сводную таблицу), автозапись меток времени
+        return $this->belongsToMany(Hotel::class, 'hotel_user', 'user_id','hotel_id')->withTimestamps();
     }
 }
