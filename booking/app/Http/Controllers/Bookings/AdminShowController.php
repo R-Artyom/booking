@@ -11,7 +11,7 @@ class AdminShowController extends Controller
     public function __invoke(Booking $booking)
     {
         // Проверка прав пользователя
-        $this->authorize('viewAdmin', $booking);
+        $this->authorize('view', $booking);
         // Шаблон бронирования
         return view('bookings.show', compact('booking'));
     }

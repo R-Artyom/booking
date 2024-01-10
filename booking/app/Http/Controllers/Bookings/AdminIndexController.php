@@ -32,7 +32,7 @@ class AdminIndexController extends Controller
     public function __invoke(Request $request)
     {
         // Проверка прав пользователя - доступно только админу и менеджеру отеля
-        $this->authorize('viewAnyAdmin', Booking::class);
+        $this->authorize('viewAny', Booking::class);
 
         // Текущий пользователь
         $user = auth()->user();
