@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Hotel;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
 
 class HotelPolicy
 {
@@ -17,12 +16,12 @@ class HotelPolicy
      * @param User $user
      * @return bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         // * Просмотр списка отелей
         // Если это панель администратора - доступно админу и любому менеджеру
         if (request()->route()->getPrefix() === '/admin') {
-            return $this->isAdmin($user) || $this->isManager($user);
+            return isAdmin($user) || isManager($user);
         }
         // Если НЕ панель администратора - доступно всем аутентифицированным пользователям
         return true;
@@ -35,12 +34,12 @@ class HotelPolicy
      * @param Hotel $hotel
      * @return bool
      */
-    public function view(User $user, Hotel $hotel)
+    public function view(User $user, Hotel $hotel): bool
     {
         // * Просмотр отеля
         // Если это панель администратора - доступно админу и менеджеру отеля
         if (request()->route()->getPrefix() === '/admin') {
-            return $this->isAdmin($user) || $this->isHotelManager($user, $hotel);
+            return isAdmin($user) || isHotelManager($user, $hotel->id);
         }
         // Если НЕ панель администратора - доступно всем аутентифицированным пользователям
         return true;
@@ -52,10 +51,10 @@ class HotelPolicy
      * @param User $user
      * @return bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         // * Создание отеля - доступно админу и любому менеджеру
-        return $this->isAdmin($user) || $this->isManager($user);
+        return isAdmin($user) || isManager($user);
     }
 
     /**
@@ -65,40 +64,22 @@ class HotelPolicy
      * @param Hotel $hotel
      * @return bool
      */
-    public function update(User $user, Hotel $hotel)
+    public function update(User $user, Hotel $hotel): bool
     {
         // * Редактирование отеля - доступно админу и менеджеру отеля
-        return $this->isAdmin($user) || $this->isHotelManager($user, $hotel);
+        return isAdmin($user) || isHotelManager($user, $hotel->id);
     }
 
     /**
-     * @param User $user
-     * @return bool
-     */
-    protected function isAdmin(User $user): bool
-    {
-        // Администратор?
-        return $user->roles->containsStrict('name', 'admin');
-    }
-
-    /**
-     * @param User $user
-     * @return bool
-     */
-    protected function isManager(User $user): bool
-    {
-        // Менеджер?
-        return $user->roles->containsStrict('name', 'manager');
-    }
-
-    /**
+     * Determine whether the user can delete the model.
+     *
      * @param User $user
      * @param Hotel $hotel
      * @return bool
      */
-    protected function isHotelManager(User $user, Hotel $hotel): bool
+    public function delete(User $user, Hotel $hotel): bool
     {
-        // Менеджер отеля?
-        return $user->roles->containsStrict('name', 'manager') && $user->hotels->containsStrict('id', $hotel->id);
+        // Удаление отеля - доступно админу и менеджеру отеля
+        return isAdmin($user) || isHotelManager($user, $hotel->id);
     }
 }
