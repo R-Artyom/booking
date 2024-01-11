@@ -35,7 +35,7 @@
         <div class="flex justify-between mb-4">
             <div class="text-2xl text-center md:text-start font-bold mb-2">Номера отеля @if($rooms->isEmpty())отсутствуют@endif</div>
             {{-- Кнопка "Добавить номер" --}}
-            @if(request()->route()->getPrefix() === '/admin')
+            @if(isAdminPanel())
                 <x-link-button-add href="{{ route('admin.rooms.create', ['hotel' => $hotel]) }}">&#10010; Добавить номер</x-link-button-add>
             @endif
         </div>
