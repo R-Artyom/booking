@@ -11,6 +11,9 @@ class AdminEditController extends Controller
     // Форма редактирования номера отеля
     public function __invoke(Room $room)
     {
+        // Проверка прав пользователя
+        $this->authorize('update', $room);
+
         // Добавить данные о всех удобствах
         $facilities = Facility::query()
             ->select('id', 'name')

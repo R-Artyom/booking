@@ -11,6 +11,9 @@ class AdminDestroyController extends Controller
     // Удаление номера отеля
     public function __invoke(Room $room)
     {
+        // Проверка прав пользователя
+        $this->authorize('delete', $room);
+
         // Ссылка на изображение в обход аксессора
         $originalPosterUrl = $room->getRawOriginal('poster_url');
         // Удаление изображения номера отеля

@@ -12,6 +12,9 @@ class AdminUpdateController extends Controller
     // Редактирование данных номера отеля
     public function __invoke(Request $request, Room $room)
     {
+        // Проверка прав пользователя
+        $this->authorize('update', $room);
+
         // Валидация
         $newData = $request->validate([
             'name' => 'required|string|max:100',
