@@ -11,6 +11,9 @@ class AdminStoreController extends Controller
     // Создание отеля
     public function __invoke(Request $request)
     {
+        // Проверка прав пользователя
+        $this->authorize('create', Facility::class);
+
         // Валидация
         $newData = $request->validate([
             'name' => 'required|string|max:100',

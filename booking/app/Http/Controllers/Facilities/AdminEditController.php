@@ -10,6 +10,9 @@ class AdminEditController extends Controller
     // Форма редактирования удобства
     public function __invoke(Facility $facility)
     {
+        // Проверка прав пользователя
+        $this->authorize('update', $facility);
+
         // Шаблон редактирования удобства
         return view('facilities.admin-edit', compact('facility'));
     }

@@ -11,6 +11,9 @@ class AdminIndexController extends Controller
     // Список удобств
     public function __invoke(Request $request)
     {
+        // Проверка прав пользователя
+        $this->authorize('viewAny', Facility::class);
+
         // Данные о всех доступных удобствах
         $facilities = Facility::query()
             ->select('id', 'name', 'created_at')
