@@ -11,6 +11,9 @@ class AdminUpdateController extends Controller
     // Редактирование данных пользователя
     public function __invoke(Request $request, User $user)
     {
+        // Проверка прав пользователя
+        $this->authorize('update', $user);
+
         // Валидация
         $newData = $request->validate([
             // Роли пользователя
