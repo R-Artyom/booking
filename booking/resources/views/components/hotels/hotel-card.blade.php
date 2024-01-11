@@ -22,7 +22,7 @@
             </div>
         @endif
         <div class="flex justify-end">
-            @if(request()->route()->getPrefix() === '/admin')
+            @if(isAdminPanel())
                 <x-link-button href="{{ route('admin.hotels.show', ['hotel' => $hotel, 'start_date' => request()->get('start_date'), 'end_date' => request()->get('end_date')]) }}">Подробнее</x-link-button>
             @else
                 <x-link-button href="{{ route('hotels.show', ['hotel' => $hotel, 'start_date' => request()->get('start_date'), 'end_date' => request()->get('end_date')]) }}">Подробнее</x-link-button>

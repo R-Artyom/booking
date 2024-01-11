@@ -8,7 +8,7 @@
             </div>
             @if($showLink ?? false)
             <div class="flex">
-                @if(request()->route()->getPrefix() === '/admin')
+                @if(isAdminPanel())
                     <x-link-button href="{{ route('admin.bookings.show', ['booking' => $booking]) }}">Подробнее</x-link-button>
                 @else
                     <x-link-button href="{{ route('bookings.show', ['booking' => $booking]) }}">Подробнее</x-link-button>

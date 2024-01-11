@@ -3,7 +3,7 @@
         {{-- Блок "Фильтры отелей" --}}
         <x-hotels.hotel-filters class="mb-4" :index-data="$indexData"/>
         {{-- Кнопка "Добавить отель" --}}
-        @if(request()->route()->getPrefix() === '/admin')
+        @if(isAdminPanel())
             <div class="flex mb-4 justify-end">
                 <x-link-button-add href="{{ route('admin.hotels.create') }}">&#10010; Добавить отель</x-link-button-add>
             </div>

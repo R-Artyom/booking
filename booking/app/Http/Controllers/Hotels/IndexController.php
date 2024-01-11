@@ -33,7 +33,7 @@ class IndexController extends Controller
     public function __invoke(Request $request)
     {
         // Если это панель администратора
-        if ($request->route()->getPrefix() === '/admin') {
+        if (isAdminPanel()) {
             // Проверка прав пользователя
             $this->authorize('viewAny', Hotel::class);
 
@@ -89,7 +89,7 @@ class IndexController extends Controller
         }
 
         // Фильтрация по цене (отели без номеров показывать только в админпанели)
-        if (($request->route()->getPrefix() !== '/admin') || isset($indexData['filterByMinPrice']) || isset($indexData['filterByMaxPrice'])) {
+        if (!isAdminPanel() || isset($indexData['filterByMinPrice']) || isset($indexData['filterByMaxPrice'])) {
             $min = $indexData['filterByMinPrice'];
             $max = $indexData['filterByMaxPrice'];
             $startDay = $indexData['startDate'];

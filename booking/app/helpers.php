@@ -46,3 +46,14 @@ function isGuest(User $user): bool
     // Гость?
     return $user->roles->containsStrict('name', 'guest');
 }
+
+// ****************************************************************************
+//                Проверка текущего роута на панель Администратора
+// ****************************************************************************
+/**
+ * @return bool
+ */
+function isAdminPanel(): bool
+{
+    return request()->route()->getPrefix() === '/admin';
+}

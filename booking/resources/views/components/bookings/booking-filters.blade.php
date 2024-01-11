@@ -31,7 +31,7 @@
                     @endif
                 </select>
             </div>
-            @if(request()->route()->getPrefix() === '/admin')
+            @if(isAdminPanel())
                 <div class="flex flex-col mr-3">
                     <label for="filterByUser" class="text-gray-700">Фильтрация по пользователю:</label>
                     <select name="filterByUser" id="filterByUser" class="h-10 w-60" onchange="this.form.submit()">

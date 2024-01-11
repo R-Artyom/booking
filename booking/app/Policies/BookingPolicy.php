@@ -20,7 +20,7 @@ class BookingPolicy
     {
         // * Просмотр списка бронирований
         // Если это панель администратора - доступно админу и любому менеджеру
-        if (request()->route()->getPrefix() === '/admin') {
+        if (isAdminPanel()) {
             return isAdmin($user) || isManager($user);
         }
         // Если НЕ панель администратора - доступно всем аутентифицированным пользователям
@@ -39,7 +39,7 @@ class BookingPolicy
         // * Просмотр бронирования
         $isOwner = $booking->user_id === $user->id;
         // Если это панель администратора - доступно владельцу бронирования, админу и менеджеру отеля
-        if (request()->route()->getPrefix() === '/admin') {
+        if (isAdminPanel()) {
             return $isOwner || isAdmin($user) || isHotelManager($user, $booking->room->hotel_id);
         }
         // Если НЕ панель администратора - доступно только владельцу бронирования

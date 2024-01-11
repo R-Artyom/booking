@@ -20,7 +20,7 @@ class HotelPolicy
     {
         // * Просмотр списка отелей
         // Если это панель администратора - доступно админу и любому менеджеру
-        if (request()->route()->getPrefix() === '/admin') {
+        if (isAdminPanel()) {
             return isAdmin($user) || isManager($user);
         }
         // Если НЕ панель администратора - доступно всем аутентифицированным пользователям
@@ -38,7 +38,7 @@ class HotelPolicy
     {
         // * Просмотр отеля
         // Если это панель администратора - доступно админу и менеджеру отеля
-        if (request()->route()->getPrefix() === '/admin') {
+        if (isAdminPanel()) {
             return isAdmin($user) || isHotelManager($user, $hotel->id);
         }
         // Если НЕ панель администратора - доступно всем аутентифицированным пользователям
