@@ -108,7 +108,7 @@ class HelperController extends Controller
         // Фильтрация по удобствам отеля (множественная)
         if (!empty($requestArray['filterByFacilityId'])) {
             // Преобразование строки вида ("2,3,4") в массив
-            $arr = $this->convertFilterStringToArrow($requestArray['filterByFacilityId']);
+            $arr = convertFilterStringToArrow($requestArray['filterByFacilityId']);
             // Список id выбранных удобств в виде массива, для фронта
             $this->indexData['selectedFacility']['ids'] = $arr;
             // Список id выбранных удобств в виде массива, для бэка
@@ -120,7 +120,7 @@ class HelperController extends Controller
         // Фильтрация по удобствам номера (множественная)
         if (!empty($requestArray['filterByRoomFacilityId'])) {
             // Преобразование строки вида ("2,3,4") в массив
-            $arr = $this->convertFilterStringToArrow($requestArray['filterByRoomFacilityId']);
+            $arr = convertFilterStringToArrow($requestArray['filterByRoomFacilityId']);
             // Список id выбранных удобств в виде массива, для фронта
             $this->indexData['selectedRoomFacility']['ids'] = $arr;
             // Список id выбранных удобств в виде массива, для бэка
@@ -137,25 +137,5 @@ class HelperController extends Controller
                 $this->indexData['sort'] = $requestArray['sort'];
             }
         }
-    }
-
-    /**
-     * Преобразование строки фильтра в массив, для организации множественного селекта
-     *
-     * @param string $filter
-     * @return array|int[]
-     */
-    public function convertFilterStringToArrow(string $filter)
-    {
-        // Преобразование строки вида ("2,3,4") в массив
-        $arr = explode(",", $filter);
-        // Массив с id, который необходимо удалить из фильтра (повторный клик)
-        $needDelete = array_diff_key($arr, array_unique($arr));
-        // Удаление id из списка
-        $arr = array_diff($arr, $needDelete);
-        // Приведение типов
-        return array_map(function($value) {
-            return intval($value);
-        }, $arr);
     }
 }

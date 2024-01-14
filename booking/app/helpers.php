@@ -58,3 +58,23 @@ function isAdminPanel(): bool
 {
     return request()->route()->getPrefix() === '/admin';
 }
+
+/**
+ * Преобразование строки фильтра в массив, для организации множественного селекта
+ *
+ * @param string $filter
+ * @return array
+ */
+function convertFilterStringToArrow(string $filter): array
+{
+    // Преобразование строки вида ("2,3,4") в массив
+    $arr = explode(",", $filter);
+    // Массив с id, который необходимо удалить из фильтра (повторный клик)
+    $needDelete = array_diff_key($arr, array_unique($arr));
+    // Удаление id из списка
+    $arr = array_diff($arr, $needDelete);
+    // Приведение типов
+    return array_map(function($value) {
+        return intval($value);
+    }, $arr);
+}
