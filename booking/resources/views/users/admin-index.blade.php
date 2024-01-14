@@ -11,6 +11,7 @@
                         <th class="text-left py-2 px-2 uppercase font-semibold text-sm">ФИО</th>
                         <th class="text-left py-2 px-2 uppercase font-semibold text-sm">Email</th>
                         <th class="text-left py-2 px-2 uppercase font-semibold text-sm">Роль</th>
+                        <th class="text-left py-2 px-2 uppercase font-semibold text-sm">Отели менеджера</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
@@ -39,6 +40,50 @@
                                             <option value="guest" @if(isGuest($users[$i])) selected @endif>Гость</option>
                                             <option value="manager" @if(isManager($users[$i])) selected @endif>Менеджер</option>
                                             <option value="admin" @if(isAdmin($users[$i])) selected @endif>Администратор</option>
+                                        </select>
+                                    @endif
+                                </form>
+                            </td>
+
+                            {{-- Отели менеджера --}}
+                            <td class="text-left py-1 px-2">
+                                <form method="post" action="{{ route('admin.users.update', ['user' => $users[$i]]) }}">
+                                    @csrf
+                                    @method('PUT')
+
+                                    @if(isManager($users[$i]))
+                                        <select name="userHotels" class="py-1 pl-1 pr-10 py-1 pl-1 h-8 w-48 border-gray-400" onchange="this.form.submit()">
+                                            {{-- Если нет ни одного отеля, закреплённого за менеджером --}}
+                                            @if($users[$i]->hotels->isEmpty()))
+                                                <option value="0" selected disabled>Выберите отель</option>
+                                                {{-- Список всех доступных отелей --}}
+                                                @if(isset($hotels))
+                                                    @foreach($hotels as $hotel)
+                                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                    @endforeach
+                                                @endif
+
+                                            {{-- Если есть хотя бы один закреплённый за менеджером отель, то можно добавить или убавить через запятую --}}
+                                            @else
+                                                {{-- Количество закреплённых отелей --}}
+                                                <option selected>Кол-во отелей: {{ $users[$i]->hotels->count() }}</option>
+
+                                                {{-- Перечисление закреплённых за менеджером отелей --}}
+                                                @foreach($users[$i]->hotels as $hotel)
+                                                    {{-- Будет удаление отеля из списка--}}
+                                                    <option value="{{ $hotel->id . ',' . $userHotelsString[$users[$i]->id] }}">{{ $hotel->name }} &#10060;</option>
+                                                @endforeach
+
+                                                {{-- Перечисление НЕзакреплённых за менеджером отелей, доступных к закреплению --}}
+                                                @if(isset($hotels))
+                                                    @foreach($hotels as $hotel)
+                                                        @if(!in_array($hotel->id, $userHotelsArray[$users[$i]->id]))
+                                                            {{-- Будет добавление отеля в список--}}
+                                                            <option value="{{ $hotel->id . ',' . $userHotelsString[$users[$i]->id] }}">{{ $hotel->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endif
                                         </select>
                                     @endif
                                 </form>

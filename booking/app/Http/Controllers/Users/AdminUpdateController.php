@@ -19,16 +19,29 @@ class AdminUpdateController extends Controller
             // Роли пользователя
             'roleNames' => 'array',
             'roleNames.*' => 'distinct|string|exists:roles,name',
+            // Отели, закреплённые за пользователем
+            'userHotels' => 'string',
         ],
         [
             // Роли пользователя
             'roleNames.*.distinct' => 'В списке ролей не должно быть повторяющихся значений',
             'roleNames.*.string' => 'Название роли должно быть строкой',
             'roleNames.*.exists' => 'Роли с таким названием нет в списке разрешенных',
+            'userHotels.string' => 'Список отелей должен быть строкой',
         ]);
 
         // Синхронизировать роли пользователя в таблице 'role_user' (удалить ненужные, добавить нужные)
-        $user->roles()->sync($newData['roleNames'] ?? []);
+        if (isset($newData['roleNames'])) {
+            $user->roles()->sync($newData['roleNames']);
+        }
+
+        // Синхронизировать отели пользователя в таблице 'hotel_user' (удалить ненужные, добавить нужные)
+        if (isset($newData['userHotels'])) {
+            // Преобразование строки вида ("2,3,4") в массив
+            $userHotelIds = convertFilterStringToArrow($newData['userHotels']);
+            // Синхронизация
+            $user->hotels()->sync($userHotelIds);
+        }
 
         // Страница списка пользователей
         return back();
