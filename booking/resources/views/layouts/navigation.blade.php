@@ -56,7 +56,7 @@
                         <x-slot name="content">
                             <!-- Authentication -->
 
-                            @if(Auth::user()->roles->containsStrict('name', 'admin') || Auth::user()->roles->containsStrict('name', 'manager'))
+                            @if(isAdmin(Auth::user()) || isManager(Auth::user()))
                                 <x-dropdown-link :href="route('admin.bookings.index')">
                                     Управление бронированиями
                                 </x-dropdown-link>
@@ -68,7 +68,7 @@
                                 </x-dropdown-link>
                             @endif
 
-                            @if(Auth::user()->roles->containsStrict('name', 'admin'))
+                            @if(isAdmin(Auth::user()))
                                 <x-dropdown-link :href="route('admin.users.index')">
                                     Пользователи
                                 </x-dropdown-link>

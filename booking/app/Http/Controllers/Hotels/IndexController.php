@@ -38,7 +38,7 @@ class IndexController extends Controller
             $this->authorize('viewAny', Hotel::class);
 
             // У менеджера отеля доступ есть только к своим отелям (у админа - к любому отелю)
-            if (auth()->user()->roles->containsStrict('name', 'manager')) {
+            if (isManager(auth()->user())) {
                 // Список id отелей менеджера
                 $managerHotelIds = auth()->user()->hotels->pluck('id')->toArray();
             }

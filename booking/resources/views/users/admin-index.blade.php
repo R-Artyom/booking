@@ -36,9 +36,9 @@
                                         <span class="">{{ implode(', ', $users[$i]->roles->pluck('description')->toArray()) }}</span>
                                     @else
                                         <select name="roleNames[]" class="py-1 pl-1 pr-10 py-1 pl-1 h-8 w-48 border-gray-400" onchange="this.form.submit()">
-                                            <option value="guest" @if($users[$i]->roles->containsStrict('name', 'guest')) selected @endif>Гость</option>
-                                            <option value="manager" @if($users[$i]->roles->containsStrict('name', 'manager')) selected @endif>Менеджер</option>
-                                            <option value="admin" @if($users[$i]->roles->containsStrict('name', 'admin')) selected @endif>Администратор</option>
+                                            <option value="guest" @if(isGuest($users[$i])) selected @endif>Гость</option>
+                                            <option value="manager" @if(isManager($users[$i])) selected @endif>Менеджер</option>
+                                            <option value="admin" @if(isAdmin($users[$i])) selected @endif>Администратор</option>
                                         </select>
                                     @endif
                                 </form>

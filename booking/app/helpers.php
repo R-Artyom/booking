@@ -1,13 +1,14 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 // ****************************************************************************
 //                         Проверка прав пользователя
 // ****************************************************************************
 
 /**
- * @param User $user
+ * @param User|Authenticatable $user
  * @return bool
  */
 function isAdmin(User $user): bool
@@ -17,7 +18,7 @@ function isAdmin(User $user): bool
 }
 
 /**
- * @param User $user
+ * @param User|Authenticatable $user
  * @return bool
  */
 function isManager(User $user): bool
@@ -27,7 +28,7 @@ function isManager(User $user): bool
 }
 
 /**
- * @param User $user
+ * @param User|Authenticatable $user
  * @param int $hotelId
  * @return bool
  */
@@ -38,7 +39,7 @@ function isHotelManager(User $user, int $hotelId): bool
 }
 
 /**
- * @param User $user
+ * @param User|Authenticatable $user
  * @return bool
  */
 function isGuest(User $user): bool

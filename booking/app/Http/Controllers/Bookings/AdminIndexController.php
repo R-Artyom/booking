@@ -66,7 +66,7 @@ class AdminIndexController extends Controller
         }
 
         // * Для менеджера отеля доступ есть только к бронированиям своего отеля, для админа - любого отеля
-        if ($user->roles->containsStrict('name', 'manager')) {
+        if (isManager($user)) {
             // Список id отелей менеджера
             $hotelIds = $user->hotels->pluck('id')->toArray();
             // Список номеров

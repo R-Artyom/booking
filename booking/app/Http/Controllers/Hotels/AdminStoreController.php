@@ -87,7 +87,7 @@ class AdminStoreController extends Controller
         }
 
         // Если создатель отеля - менеджер, то отель закрепляется за ним
-        if (auth()->user()->roles->containsStrict('name', 'manager')) {
+        if (isManager(auth()->user())) {
             // Добавить отель в сводной таблице 'hotel_user'
             auth()->user()->hotels()->attach([$hotel->id]);
         }
