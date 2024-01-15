@@ -1,3 +1,5 @@
+@section('title', 'Создание отеля')
+
 <x-app-layout>
     <div class="min-h-[calc(100vh-65px)] flex flex-col sm:justify-center items-center bg-gray-100">
         @if(session('success'))
@@ -8,7 +10,7 @@
 
         <div class="sm:max-w-3xl w-full px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-l-sm my-12">
             <div class="text-lg text-gray-700 font-bold mb-3">
-                Создание отеля
+                @yield('title')
             </div>
             <hr class="mb-4">
             <form method="post" enctype="multipart/form-data" action="{{ route('admin.hotels.store') }}">

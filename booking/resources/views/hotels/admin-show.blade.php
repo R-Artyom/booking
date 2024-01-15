@@ -1,8 +1,10 @@
+@section('title', "Отель \"{$hotel->name}\"")
+
 <x-app-layout>
     <div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
 
         {{-- Отель --}}
-        <div class="text-2xl text-center md:text-start font-bold mb-4">Отель</div>
+        <div class="text-2xl text-center md:text-start font-bold mb-4">@yield('title')</div>
         <div class="flex flex-wrap bg-gray-50 shadow-md mb-12">
             <div class="w-full flex justify-start md:w-1/3 mb-8 md:mb-0">
                 <img class="h-full rounded-l-sm" src="{{ $hotel->poster_url }}" alt="Room Image">

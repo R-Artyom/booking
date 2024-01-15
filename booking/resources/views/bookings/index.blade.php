@@ -1,3 +1,9 @@
+@if(isAdminPanel())
+    @section('title', 'Бронирования')
+@else
+    @section('title', 'Мои бронирования')
+@endif
+
 <x-app-layout>
     <div class="pt-4 pb-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

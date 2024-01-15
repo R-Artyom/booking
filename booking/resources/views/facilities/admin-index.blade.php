@@ -1,8 +1,10 @@
+@section('title', 'Удобства')
+
 <x-app-layout>
     <div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
         {{-- Кнопка "Добавить удобство" --}}
         <div class="flex mb-4 justify-between">
-            <div class="text-2xl text-center md:text-start font-bold">Удобства</div>
+            <div class="text-2xl text-center md:text-start font-bold">@yield('title')</div>
             <x-link-button-add href="{{ route('admin.facilities.create') }}">&#10010; Добавить удобство</x-link-button-add>
         </div>
 

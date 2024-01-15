@@ -1,3 +1,5 @@
+@section('title', "Отель \"{$hotel->name}\"")
+
 @php
     $startDate = request()->get('start_date', \Carbon\Carbon::now()->format('Y-m-d'));
     $endDate = request()->get('end_date', \Carbon\Carbon::now()->addDay()->format('Y-m-d'));
