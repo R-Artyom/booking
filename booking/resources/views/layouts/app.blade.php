@@ -13,6 +13,8 @@
         <!-- Css -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+        <!-- Favicon -->
+        <link href="{{ asset('storage/favicon.png') }}" rel="icon" type="image/png">
     </head>
     <body class="font-sans antialiased">
         <div class="bg-gray-100 min-h-screen">
