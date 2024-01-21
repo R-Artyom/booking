@@ -1861,30 +1861,6 @@ select {
 .placeholder-box textarea:invalid + .placeholder-text {
     display: block;
 }
-
-/*!* Скрываем стандартный вид селекта *!*/
-/*select[multiple] {*/
-/*    appearance: none;*/
-/*    outline: none;*/
-/*    border: none;*/
-/*    background: none;*/
-/*}*/
-
-/*!* Показываем чекбоксы вместо опций *!*/
-/*option {*/
-/*    display: block;*/
-/*    margin: 0;*/
-/*    padding: 0.5rem;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*option::before {*/
-/*    content: "☐ "; !* Пустой чекбокс *!*/
-/*}*/
-
-/*option:checked::before {*/
-/*    content: "☑ "; !* Заполненный чекбокс *!*/
-/*}*/
 @media (min-width: 1536px) {
 
   .\32xl\:container {

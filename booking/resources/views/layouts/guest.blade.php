@@ -14,9 +14,14 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     </head>
     <body>
+        <!-- Navigation Menu -->
+        @include('layouts.navigation')
+
+        <!-- Page Content -->
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}"></script>
     </body>
