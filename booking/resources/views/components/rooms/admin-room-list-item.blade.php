@@ -21,7 +21,7 @@
         <div class="flex justify-end pt-2">
             <div class="flex flex-col">
                 <span class="text-lg font-bold">{{ $room->total_price }} руб.</span>
-                <span>за {{ $room->total_days }} ночей</span>
+                <span>за {{ $room->total_days }} {{ getPhraseNight($room->total_days) }}</span>
             </div>
             <div class="flex justify-end h-10">
                 {{-- Кнопка "Редактировать" --}}
