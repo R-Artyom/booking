@@ -1,3 +1,5 @@
+@section('title', 'Подтверждение Email')
+
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
