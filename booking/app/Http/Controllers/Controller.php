@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Notify;
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 
 class Controller extends BaseController
 {
@@ -349,4 +353,25 @@ class Controller extends BaseController
         }
         return $dictionaries;
     }
+
+    /**
+     * Отправка уведомления на почту
+     *
+     * @param array $notifyData тема письма (нулевой элемент массива) + текст письма (всё остальное, каждый элемент - новая строка)
+     * @param User|Authenticatable $user пользователь-адресат
+     * @return void
+     */
+    public function sendEmailNotify(array $notifyData, User $user)
+    {
+        // * Сборка письма
+        // Тема
+        $data['subject'] = $notifyData[0];
+        unset($notifyData[0]);
+        // Тело
+        $data['message'] = implode('<br>', $notifyData);
+
+        // * Отправка письма
+        Mail::to($user->email)->send(new Notify($data));
+    }
+
 }
