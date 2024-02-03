@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\BookingCreated;
+use App\Events\BookingDeleted;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +16,11 @@ class Booking extends Model
     protected $guarded = false;
     // Постоянная жадная загрузка
     protected $with = ['room', 'user'];
+    // Соответствие стандартных событий кастомным
+    protected $dispatchesEvents = [
+        'created' => BookingCreated::class,
+        'deleted' => BookingDeleted::class,
+    ];
 
     // Пользователь, сделавший бронирование
     public function user()
