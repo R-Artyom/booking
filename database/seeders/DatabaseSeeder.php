@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // * Запрет отправки email уведомлений на время записи тестовых данных
+        config(['enable.userEmailNotifications' => false]);
+
         // * Заполнение тестовыми значениями:
         // Таблица 'users' (Пользователи)
         $users = User::factory(100)->create();

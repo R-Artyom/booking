@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Events\BookingCreated;
 use App\Notifications\BookingCreated as NotificationsBookingCreated;
 
-// Слушатль "Бронирование создано" (Отправка уведомления о создании бронирования)
+// Слушатель "Бронирование создано" (Отправка уведомления о создании бронирования)
 class SendBookingCreatedNotification
 {
     /**
@@ -16,7 +16,9 @@ class SendBookingCreatedNotification
      */
     public function handle(BookingCreated $event)
     {
-        // * Отправка уведомления "Бронирование создано"
-        $event->booking->user->notify(new NotificationsBookingCreated($event->booking));
+        // * Отправка уведомления "Бронирование создано" (если разрешено)
+        if (config('enable.userEmailNotifications') === true) {
+            $event->booking->user->notify(new NotificationsBookingCreated($event->booking));
+        }
     }
 }
