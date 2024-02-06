@@ -35,4 +35,12 @@ class Booking extends Model
         // Связь бронирования с номерами - принадлежит одному (обратная связь "Один ко многим")
         return $this->belongsTo(Room::class, 'room_id', 'id')->with(['hotel']);
     }
+
+    // Статус бронирования
+    public function status()
+    {
+        // Связь бронирования со статусами - принадлежит одному (обратная связь "Один ко многим")
+        return $this->belongsTo(Status::class, 'status_id', 'id');
+    }
+
 }

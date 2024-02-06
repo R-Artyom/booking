@@ -17,6 +17,7 @@ class AddFkToBookingsTable extends Migration
             // * Простые индексы
             $table->index('room_id', 'booking_room_idx');
             $table->index('user_id', 'booking_user_idx');
+            $table->index('status_id', 'booking_status_idx');
 
             // * Внешние ключи:
             // Ссылка на столбец id в таблице rooms
@@ -27,6 +28,11 @@ class AddFkToBookingsTable extends Migration
             // Ссылка на столбец id в таблице users
             $table->foreign('user_id', 'booking_user_fk')
                 ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            // Ссылка на столбец id в таблице statuses
+            $table->foreign('status_id', 'booking_status_fk')
+                ->references('id')->on('statuses')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

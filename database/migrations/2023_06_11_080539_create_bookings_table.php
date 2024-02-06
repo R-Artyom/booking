@@ -22,6 +22,7 @@ class CreateBookingsTable extends Migration
             $table->date('finished_at')->comment('Дата выезда');
             $table->unsignedInteger('days')->comment('Количество дней');
             $table->decimal('price', 8, 2)->comment('Цена');
+            $table->unsignedBigInteger('status_id')->default(config('status.Создан'))->comment('Статус брони');
             $table->timestamp('created_at')->nullable()->comment('Дата создания записи');
             $table->timestamp('updated_at')->nullable()->comment('Дата обновления записи');
             // Уникальные индексы
