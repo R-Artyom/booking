@@ -15,11 +15,13 @@
                 @endif
             </div>
             @endif
-            <form class="ml-4" method="POST" action="{{ route('bookings.destroy', ['booking' => $booking]) }}">
-                @csrf
-                @method('DELETE')
-                <x-the-button-delete class=" h-full w-full">Отменить</x-the-button-delete>
-            </form>
+            @if($booking->status_id === config('status.Создан'))
+                <form class="ml-4" method="POST" action="{{ route('bookings.destroy', ['booking' => $booking]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <x-the-button-delete class=" h-full w-full">Отменить</x-the-button-delete>
+                </form>
+            @endif
         </div>
         <div class="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:space-x-6 w-full">
             <div class="pb-4 w-full md:w-2/5">
