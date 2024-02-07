@@ -15,8 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // Напоминание о бронировании за 3 дня до заезда
+        // Напоминание о бронировании за 3 дня до заезда (Каждый день в 10:00)
          $schedule->command('bookings-reminders:run')->dailyAt('10:00');
+        // Обновление статусов бронирований (Каждый день в 00:00)
+        $schedule->command('bookings-statuses:update')->dailyAt('00:00');
     }
 
     /**
