@@ -15,7 +15,7 @@ class Booking extends Model
     // Снять защиту массового заполнения модели
     protected $guarded = false;
     // Постоянная жадная загрузка
-    protected $with = ['room', 'user'];
+    protected $with = ['room', 'user', 'status'];
     // Соответствие стандартных событий кастомным
     protected $dispatchesEvents = [
         'created' => BookingCreated::class,
