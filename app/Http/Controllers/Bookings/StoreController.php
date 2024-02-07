@@ -74,6 +74,8 @@ class StoreController extends Controller
             'days' => $daysNumber,
             // Цена за все дни
             'price' => $roomPrice * $daysNumber,
+            // Цена за все дни
+            'status_id' => config('status.Создан'),
         ]);
 
         // Страница просмотра бронирования
