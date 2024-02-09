@@ -12,9 +12,10 @@ class StatusesUpdateController extends Controller
     {
         // Текущая дата
         $currentDate = now()->format('Y-m-d');
-        // Поиск всех бронирований со статусом "Создан"
+        // Поиск всех бронирований со статусом "Создан" или "Активен"
         $bookingsCollect = Booking::query()
             ->where('status_id', '=', config('status.Создан'))
+            ->orWhere('status_id', '=', config('status.Активен'))
             ->get();
         // Формирование нового статуса
         foreach ($bookingsCollect as $booking) {
