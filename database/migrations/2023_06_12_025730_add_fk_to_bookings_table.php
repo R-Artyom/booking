@@ -49,9 +49,11 @@ class AddFkToBookingsTable extends Migration
             // Сначала удаление внешних ключей
             $table->dropForeign('booking_room_fk');
             $table->dropForeign('booking_user_fk');
+            $table->dropForeign('booking_status_fk');
             // Затем индексов
             $table->dropIndex('booking_room_idx');
             $table->dropIndex('booking_user_idx');
+            $table->dropIndex('booking_status_idx');
         });
     }
 }
