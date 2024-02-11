@@ -29,6 +29,13 @@ class Hotel extends Model
         return $this->hasMany(Room::class, 'hotel_id', 'id')->with(['bookings', 'facilities']);
     }
 
+    // Отзывы, которые есть у отеля
+    public function feedbacks()
+    {
+        // Связь с таблицей feedbacks - один ко многим
+        return $this->hasMany(Feedback::class, 'hotel_id', 'id');
+    }
+
     /**
      * Аксессор - Преобразование атрибута poster_url (URL изображения отеля) при запросе
      *

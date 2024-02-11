@@ -65,4 +65,11 @@ class User extends Authenticatable
         // Связь с таблицей hotels - многие ко многим (через сводную таблицу), автозапись меток времени
         return $this->belongsToMany(Hotel::class, 'hotel_user', 'user_id','hotel_id')->withTimestamps();
     }
+
+    // Отзывы пользователя об отеле
+    public function feedbacks()
+    {
+        // Связь с таблицей feedbacks - один ко многим
+        return $this->hasMany(Feedback::class, 'user_id', 'id');
+    }
 }
