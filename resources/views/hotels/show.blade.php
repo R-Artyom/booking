@@ -13,9 +13,18 @@
             <div class="w-full flex justify-start md:w-1/3 mb-8 md:mb-0">
                 <img class="h-full rounded-l-sm" src="{{ $hotel->poster_url }}" alt="Room Image">
             </div>
-            <div class="w-full md:w-2/3 px-4">
-                <div class="text-2xl font-bold mb-2">{{ $hotel->name }}</div>
-                <div class="flex items-center mb-3">
+            <div class="w-full md:w-2/3 p-4">
+                <div class="text-2xl font-bold">{{ $hotel->name }}</div>
+                <div class="font-bold">
+                    @if(isset($hotel->rating))
+                        <span class="text-white rounded-md bg-green-600 px-2.5">{{ $hotel->rating ?? 'Оценок нет'}}</span>
+                        <span class="text-gray-400">{{ $hotel->feedback_quantity }} {{ getPhraseForNumber($hotel->feedback_quantity, 'оценка') }} </span>
+                    @else
+                        <span class="text-white rounded-md bg-gray-400 px-2.5">-.-</span>
+                        <span class="text-gray-400">Оценок нет</span>
+                    @endif
+                </div>
+                <div class="flex items-center mt-3 mb-3">
                     <x-gmdi-pin-drop-o class="w-5 h-5 mr-1 text-blue-700"/>
                     {{ $hotel->address }}
                 </div>
@@ -33,7 +42,7 @@
             <div class="text-2xl text-center md:text-start font-bold">Забронировать комнату</div>
 
             <!-- Validation Errors -->
-            <x-form-validation-errors class="mb-4" :errors="$errors" />
+            <x-form-validation-errors class="mb-4" :errors="$errors"/>
 
             <form method="get" action="{{ url()->current() }}">
                 <div class="flex my-6">
