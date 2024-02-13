@@ -21,6 +21,7 @@ class CreateHotelsTable extends Migration
             $table->string('poster_url', 100)->nullable()->comment('Ссылка на изображение');
             $table->string('address', 500)->comment('Адрес');
             $table->decimal('rating', 2, 1)->unsigned()->nullable()->default(null)->comment('Рейтинг');
+            $table->unsignedBigInteger('feedback_quantity')->nullable()->default(null)->comment('Количество оценок');
             $table->timestamp('created_at')->nullable()->comment('Дата создания записи');
             $table->timestamp('updated_at')->nullable()->comment('Дата обновления записи');
             // Уникальные индексы

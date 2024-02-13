@@ -105,13 +105,17 @@ class DatabaseSeeder extends Seeder
         foreach ($feedbacksCollect as $feedback) {
             $feedbacksByHotelId[$feedback->hotel_id][] = $feedback->rating;
         }
-        // Итоговый рейтинг отелей
+        // Итоговый рейтинг отелей и количество оценок
         foreach ($hotels as $hotel) {
             // Если у отеля есть отзывы
             if (isset($feedbacksByHotelId[$hotel->id])) {
-                $hotel->rating = array_sum($feedbacksByHotelId[$hotel->id]) / count($feedbacksByHotelId[$hotel->id]);
+                // Количество оценок
+                $hotel->feedback_quantity = count($feedbacksByHotelId[$hotel->id]);
+                // Рейтинг отеля
+                $hotel->rating = array_sum($feedbacksByHotelId[$hotel->id]) / $hotel->feedback_quantity;
             // Если у отеля отзывов нет
             } else {
+                $hotel->feedback_quantity = null;
                 $hotel->rating = null;
             }
             // Если были какие-либо изменения в модели (атрибуты, которые были изменены с момента последней синхронизации (attributes VS original))
