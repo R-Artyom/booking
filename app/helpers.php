@@ -82,12 +82,13 @@ function convertFilterStringToArrow(string $filter): array
 }
 
 /**
- * Функция формирования окончания слова "ночь(-и,-ей)", используемое совместно с количеством (напр. "145 ночей")
+ * Функция склонения словосочетания после числительного (напр. 12 ночей, 35 квадратных метров и т.п.)
  *
- * @param int $number количество
- * @return string результирующая фраза
+ * @param int $number числительного, стоящее перед словочетанием
+ * @param string $phrase преобразуемое словосочетание в ед. числе Им. падеже (из словаря config)
+ * @return string результирующее словосочетание
  */
-function getPhraseNight(int $number): string
+function getPhraseForNumber(int $number, string $phrase): string
 {
     // Остатка от деления на 100 хватит, чтобы создать правильное окончание слова,
     // но остатки 11,12,13,14,15,16,17,18,19 выбиваются из общей картины,
@@ -102,12 +103,12 @@ function getPhraseNight(int $number): string
     // * Результат:
     // 1,21,31,41,51,61,71,81,91
     if ($balance === 1) {
-        return "ночь";
+        return config("phrases.$phrase.one");
     // 2,22,32,42,52,62,72,82,92
     // 3,23,33,43,53,63,73,83,93
     // 4,24,34,44,54,64,74,84,94
     } elseif ($balance === 2 || $balance === 3 || $balance === 4) {
-        return "ночи";
+        return config("phrases.$phrase.two");
     // 11,12,13,14,
     // 5,15,25,35,45,55,65,75,85,95
     // 6,16,26,36,46,56,66,76,86,96
@@ -116,6 +117,6 @@ function getPhraseNight(int $number): string
     // 9,19,29,39,49,59,69,79,89,99
     // 0,10,20,30,40,50,60,70,80,90
     } else {
-        return "ночей";
+        return config("phrases.$phrase.five");
     }
 }

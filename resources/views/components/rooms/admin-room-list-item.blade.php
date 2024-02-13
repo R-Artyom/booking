@@ -9,7 +9,7 @@
                 {{ $room->name }}
             </div>
             <div>
-               <span>•</span> {{ $room->floor_area }} м
+                <span>•</span> {{ $room->floor_area }} м
             </div>
             <div>
                 @foreach($room->facilities as $facility)
@@ -21,7 +21,7 @@
         <div class="flex justify-end pt-2">
             <div class="flex flex-col">
                 <span class="text-lg font-bold">{{ $room->total_price }} руб.</span>
-                <span>за {{ $room->total_days }} {{ getPhraseNight($room->total_days) }}</span>
+                <span>за {{ $room->total_days }} {{ getPhraseForNumber($room->total_days, 'ночь') }}</span>
             </div>
             <div class="flex justify-end h-10">
                 {{-- Кнопка "Редактировать" --}}
