@@ -21,7 +21,7 @@
         <link href="{{ asset('storage/favicon.png') }}" rel="icon" type="image/png">
     </head>
     <body class="font-sans antialiased">
-        <div class="bg-gray-100 min-h-screen">
+        <div class="bg-gradient-to-r from-gray-100 to-gray-300 min-h-screen">
             <!-- Navigation Menu -->
             @include('layouts.navigation')
 

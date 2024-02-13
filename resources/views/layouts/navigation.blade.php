@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-gradient-to-r from-gray-300 to-gray-100 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
 
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
