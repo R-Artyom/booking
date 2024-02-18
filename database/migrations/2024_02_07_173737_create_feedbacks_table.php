@@ -18,7 +18,7 @@ class CreateFeedbacksTable extends Migration
             $table->id()->comment('Отзыв');
             $table->unsignedBigInteger('hotel_id')->comment('Отель');
             $table->unsignedBigInteger('user_id')->comment('Пользователь');
-            $table->text('text')->comment('Текст');
+            $table->string('text', 5000)->comment('Текст');
             $table->tinyInteger('is_active')->default(0)->comment('Признак активности');
             $table->tinyInteger('rating')->unsigned()->nullable()->default(null)->comment('Оценка');
             $table->timestamp('created_at')->nullable()->comment('Создано');
