@@ -18,10 +18,14 @@
                 <div class="font-bold">
                     @if(isset($hotel->rating))
                         <span class="text-white rounded-md bg-green-600 px-2.5">{{ $hotel->rating ?? 'Оценок нет'}}</span>
-                        <span class="text-gray-400">{{ $hotel->feedback_quantity }} {{ getPhraseForNumber($hotel->feedback_quantity, 'оценка') }} </span>
+                        <a class="text-gray-400 no-underline hover:text-gray-500 hover:underline" href="{{ route('feedbacks.index', ['hotel' => $hotel]) }}">
+                            {{ $hotel->feedback_quantity }} {{ getPhraseForNumber($hotel->feedback_quantity, 'оценка') }}
+                        </a>
                     @else
                         <span class="text-white rounded-md bg-gray-400 px-2.5">-.-</span>
-                        <span class="text-gray-400">Оценок нет</span>
+                        <a class="text-gray-400 no-underline hover:text-gray-500 hover:underline" href="{{ route('feedbacks.index', ['hotel' => $hotel]) }}">
+                            Оценок нет
+                        </a>
                     @endif
                 </div>
                 <div class="flex items-center mt-3 mb-3">

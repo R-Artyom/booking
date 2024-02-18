@@ -19,14 +19,14 @@ Route::get('/', 'MainController@index')->name('index');
 // * Роуты только для аутентифицированных пользователей
 Route::group(['middleware' => ['auth']], function () {
     // Отели
-    Route::group(['namespace' =>'Hotels'], function() {
+    Route::group(['namespace' => 'Hotels'], function () {
         // Страница списка отелей
         Route::get('/hotels', 'IndexController')->middleware('forgetSessionUrlPrePrevious')->name('hotels.index');
         // Страница просмотра отеля
         Route::get('/hotels/{hotel}', 'ShowController')->middleware('putSessionUrlPrePrevious')->name('hotels.show');
 
         // Админ роуты
-        Route::group(['prefix' =>'admin'], function () {
+        Route::group(['prefix' => 'admin'], function () {
             // Форма создания отеля
             Route::get('/hotels/create', 'AdminCreateController')->name('admin.hotels.create');
             // Сохранение данных отеля
@@ -45,9 +45,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // Номера отеля
-    Route::group(['namespace' =>'Rooms'], function() {
+    Route::group(['namespace' => 'Rooms'], function () {
         // Админ роуты
-        Route::group(['prefix' =>'admin'], function () {
+        Route::group(['prefix' => 'admin'], function () {
             // Форма создания номера
             Route::get('/hotels/{hotel}/rooms/create', 'AdminCreateController')->name('admin.rooms.create');
             // Сохранение данных номера
@@ -62,9 +62,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // Удобства
-    Route::group(['namespace' =>'Facilities'], function() {
+    Route::group(['namespace' => 'Facilities'], function () {
         // Админ роуты
-        Route::group(['prefix' =>'admin'], function () {
+        Route::group(['prefix' => 'admin'], function () {
             // Страница списка удобств
             Route::get('/facilities', 'AdminIndexController')->name('admin.facilities.index');
             // Форма создания удобства
@@ -79,9 +79,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // Пользователи
-    Route::group(['namespace' =>'Users'], function() {
+    Route::group(['namespace' => 'Users'], function () {
         // Админ роуты
-        Route::group(['prefix' =>'admin'], function () {
+        Route::group(['prefix' => 'admin'], function () {
             // Страница списка пользователей
             Route::get('/users', 'AdminIndexController')->name('admin.users.index');
             // Редактирование данных пользователя
@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // Бронирования
-    Route::group(['namespace' =>'Bookings'], function() {
+    Route::group(['namespace' => 'Bookings'], function () {
         // Страница списка бронирований
         Route::get('/bookings', 'IndexController')->middleware('forgetSessionUrlPrePrevious')->name('bookings.index');
         // Страница просмотра бронирования
@@ -101,13 +101,29 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/bookings/{booking}', 'DestroyController')->name('bookings.destroy');
 
         // Админ роуты
-        Route::group(['prefix' =>'admin'], function () {
+        Route::group(['prefix' => 'admin'], function () {
             // Страница управления бронированиями (соответствует '/admin/bookings')
             Route::get('/bookings', 'AdminIndexController')->middleware('forgetSessionUrlPrePrevious')->name('admin.bookings.index');
             // Страница управления бронированием
             Route::get('/bookings/{booking}', 'AdminShowController')->middleware('putSessionUrlPrePrevious')->name('admin.bookings.show');
         });
     });
+
+    // Отзывы
+    Route::group(['namespace' => 'Feedbacks'], function () {
+        // Таблица
+        Route::get('/hotels/{hotel}/feedbacks', 'IndexController')->name('feedbacks.index');
+        // Форма создания
+        Route::get('/hotels/{hotel}/feedbacks/create', 'CreateController')->name('feedbacks.create');
+        // Сохранение данных формы создания
+        Route::post('/feedbacks/{hotel}', 'StoreController')->name('feedbacks.store');
+        // Форма редактирования
+        Route::get('/feedbacks/{feedback}/edit', 'EditController')->name('feedbacks.edit');
+        // Сохранение данных формы редактирования
+        Route::put('/feedbacks/{feedback}', 'UpdateController')->name('feedbacks.update');
+        // Удаление
+        Route::delete('/feedbacks/{feedback}', 'DestroyController')->name('feedbacks.destroy');
+    });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
