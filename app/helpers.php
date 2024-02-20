@@ -76,7 +76,7 @@ function convertFilterStringToArrow(string $filter): array
     // Удаление id из списка
     $arr = array_diff($arr, $needDelete);
     // Приведение типов
-    return array_map(function($value) {
+    return array_map(function ($value) {
         return intval($value);
     }, $arr);
 }
@@ -118,5 +118,53 @@ function getPhraseForNumber(int $number, string $phrase): string
     // 0,10,20,30,40,50,60,70,80,90
     } else {
         return config("phrases.$phrase.five");
+    }
+}
+
+/**
+ * Дата с русскими месяцами
+ *
+ * @param int $unixDate дата в формате unix
+ * @param bool $showTime флаг "Показывать время"
+ * @return string 3 вида: "Сегодня в 19:21", "17 февраля 2024" и "17 февраля 2024 в 07:30"
+ */
+function getDateRu(int $unixDate, bool $showTime = false)
+{
+    if (empty($unixDate)) {
+        return '-';
+    } else {
+        // Преобразование текущей даты в массив
+        $currentDate = explode(' ', date('Y n j H i'));
+        // Преобразование необходимой даты в массив
+        $date = explode(' ', date('Y n j H i', $unixDate));
+        // Если дата "Сегодня", то результат вида "Сегодня в 19:21"
+        if ($currentDate[0] === $date[0] && $currentDate[1] === $date[1] && $currentDate[2] === $date[2]) {
+            return 'Сегодня в ' . $date[3] . ':' . $date[4];
+        // Если дата "Не сегодня"
+        } else {
+            // Месяц по-русски
+            $month = [
+                '',
+                'января',
+                'февраля',
+                'марта',
+                'апреля',
+                'мая',
+                'июня',
+                'июля',
+                'августа',
+                'сентября',
+                'октября',
+                'ноября',
+                'декабря'
+            ];
+            // Итоговый результат без времени (вида "17 февраля 2024")
+            $outDate = $date[2] . ' ' . $month[$date[1]] . ' ' . $date[0];
+            // Итоговый результат + время (вида "17 февраля 2024 в 07:30")
+            if ($showTime) {
+                $outDate .= ' в ' . $date[3] . ':' . $date[4];
+            }
+            return $outDate;
+        }
     }
 }
