@@ -23,6 +23,11 @@
                             {{ __('Bookings') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('users.feedbacks.index', ['user' => auth()->user()]) }}" active="{{ request()->routeIs('users.feedbacks.index', ['user' => auth()->user()]) }}">
+                            Мои отзывы
+                        </x-nav-link>
+                    </div>
                 @endauth
             </div>
 

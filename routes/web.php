@@ -80,6 +80,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Пользователи
     Route::group(['namespace' => 'Users'], function () {
+        // Таблица "Мои отзывы"
+        Route::get('/users/{user}/feedbacks', 'FeedbacksIndexController')->name('users.feedbacks.index');
         // Админ роуты
         Route::group(['prefix' => 'admin'], function () {
             // Страница списка пользователей
@@ -111,7 +113,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Отзывы
     Route::group(['namespace' => 'Feedbacks'], function () {
-        // Таблица
+        // Таблица отзывов отеля
         Route::get('/hotels/{hotel}/feedbacks', 'IndexController')->name('feedbacks.index');
         // Форма создания
         Route::get('/hotels/{hotel}/feedbacks/create', 'CreateController')->name('feedbacks.create');
