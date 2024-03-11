@@ -39,6 +39,8 @@ class UpdateController extends Controller
 
         // Если были какие-либо изменения в модели (атрибуты, которые были изменены с момента последней синхронизации (attributes VS original))
         if ($feedback->isDirty()) {
+            // Флаг активности отзыва - "Требуется одобрение"
+            $feedback->is_active = false;
             // Обновление записи в таблице 'feedbacks'
             $feedback->save();
         }
