@@ -1,7 +1,7 @@
 <div {{ $attributes->merge(['class' => 'bg-gray-50 flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8']) }}>
     <div class="flex flex-col justify-start items-start px-4 py-4 md:px-6 xl:px-8 w-full">
         <div class="w-full flex justify-between py-2">
-            <div class="flex items-center">
+            <div class="flex items-center flex-wrap">
                 {{-- Оценка в виде звёзд --}}
                 @for($i = 1; $i < 6; $i++)
                     @if($i <= $feedback->rating)
@@ -20,7 +20,7 @@
                 @endif
             </div>
             @if($feedback->user_id === auth()->user()->id)
-                <div class="flex">
+                <div class="flex flex-wrap">
                     {{-- Кнопка "Редактировать" --}}
                     <div>
                         <x-link-button class="ml-4" href="{{ route('feedbacks.edit', ['feedback' => $feedback]) }}">Редактировать</x-link-button>
