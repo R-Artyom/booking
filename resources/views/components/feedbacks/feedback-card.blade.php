@@ -15,26 +15,45 @@
                     {{ getDateRu(strtotime($feedback->created_at)) }}
                 </span>
                 {{-- Признак активности --}}
-                @if($feedback->is_active === 0)
-                    <span class="rounded-md bg-red-700 text-sm text-white px-3 py-0.5 mr-2">На одобрении</span>
+                @if(!isset($feedback->is_active))
+                    <span class="rounded-md bg-blue-500 text-sm text-white px-3 py-0.5 mr-2">На проверке</span>
+                @elseif($feedback->is_active === 0)
+                    <span class="rounded-md bg-red-700 text-sm text-white px-3 py-0.5 mr-2">Отклонён</span>
                 @endif
             </div>
-            @if($feedback->user_id === auth()->user()->id)
-                <div class="flex flex-wrap">
-                    {{-- Кнопка "Редактировать" --}}
-                    <div>
-                        <x-link-button class="ml-4" href="{{ route('feedbacks.edit', ['feedback' => $feedback]) }}">Редактировать</x-link-button>
-                    </div>
-                    {{-- Кнопка "Удалить" --}}
-                    <div>
-                        <form class="ml-4" method="POST" action="{{ route('feedbacks.destroy', ['feedback' => $feedback]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <x-the-button-delete class=" h-full w-full">Удалить</x-the-button-delete>
-                        </form>
-                    </div>
-                </div>
-            @endif
+            <div class="flex flex-wrap">
+                @if(isAdminPanel())
+                    {{-- Кнопка "Одобрить" --}}
+                    @if($feedback->is_active === null || $feedback->is_active === 0)
+                        <div>
+                            <x-link-button class="ml-4" href="{{ route('admin.feedbacks.approve', ['feedback' => $feedback]) }}">Одобрить</x-link-button>
+                        </div>
+                    @endif
+                    {{-- Кнопка "Отклонить" --}}
+                    @if($feedback->is_active === null || $feedback->is_active === 1)
+                        <div>
+                            <x-link-button class="ml-4" href="{{ route('admin.feedbacks.disapprove', ['feedback' => $feedback]) }}">Отклонить</x-link-button>
+                        </div>
+                    @endif
+                @else
+                    @if($feedback->user_id === auth()->user()->id)
+                        {{-- Кнопка "Редактировать" --}}
+                        @if(!isAdminPanel())
+                            <div>
+                                <x-link-button class="ml-4" href="{{ route('feedbacks.edit', ['feedback' => $feedback]) }}">Редактировать</x-link-button>
+                            </div>
+                        @endif
+                        {{-- Кнопка "Удалить" --}}
+                        <div>
+                            <form class="ml-4" method="POST" action="{{ route('feedbacks.destroy', ['feedback' => $feedback]) }}">
+                                @csrf
+                                @method('DELETE')
+                                <x-the-button-delete class=" h-full w-full">Удалить</x-the-button-delete>
+                            </form>
+                        </div>
+                    @endif
+                @endif
+            </div>
         </div>
         <div>
             {{ $feedback->text }}

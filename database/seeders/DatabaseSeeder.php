@@ -77,6 +77,8 @@ class DatabaseSeeder extends Seeder
 
         // Таблица 'feedbacks' (отзывы)
         foreach ($users as $user) {
+            // Возможные значения флага активности (0 - отклонён, 1 - одобрен, null - на проверке)
+            $isActive = [0, 1, null];
             // Если у пользователя есть завершённые бронирования
             if ($user->bookings->containsStrict('status_id', config('status.Завершен'))) {
                 foreach ($user->bookings as $booking) {
@@ -85,7 +87,7 @@ class DatabaseSeeder extends Seeder
                         Feedback::factory()->create([
                             'hotel_id' => $booking->room->hotel_id,
                             'user_id' => $user->id,
-                            'is_active' => random_int(0, 1),
+                            'is_active' => $isActive[random_int(0, 2)],
                             'rating' => random_int(1, 5),
                             'created_at' => $user->created_at,
                             'updated_at' => $user->created_at,

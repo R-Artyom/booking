@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Hotels;
 
 use App\Http\Controllers\Controller;
+use App\Models\Feedback;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 
 class HelperController extends Controller
@@ -137,5 +139,37 @@ class HelperController extends Controller
                 $this->indexData['sort'] = $requestArray['sort'];
             }
         }
+    }
+
+    /**
+     * Обновление рейтинга отеля
+     * @param Hotel $hotel
+     * @return void
+     */
+    public function updateRating(Hotel $hotel)
+    {
+        // Данные о всех отзывах отеля
+        $feedbacksCollect = Feedback::query()
+            ->where('hotel_id', $hotel->id)
+            ->where('is_active', 1)
+            ->get();
+
+        // * Обновление данных в таблице 'feedbacks'
+        if ($feedbacksCollect->isNotEmpty()) {
+            // Сумма всех оценок отеля
+            $ratingSum = $feedbacksCollect->sum(function ($feedbacks) {
+                return $feedbacks->rating;
+            });
+            // Количество оценок
+            $hotel->feedback_quantity = $feedbacksCollect->count();
+            // Рейтинг отеля
+            $hotel->rating = $ratingSum / $hotel->feedback_quantity;
+        } else {
+            // Количество оценок
+            $hotel->feedback_quantity = null;
+            // Рейтинг отеля
+            $hotel->rating = null;
+        }
+        $hotel->save();
     }
 }

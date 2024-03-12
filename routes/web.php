@@ -125,6 +125,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/feedbacks/{feedback}', 'UpdateController')->name('feedbacks.update');
         // Удаление
         Route::delete('/feedbacks/{feedback}', 'DestroyController')->name('feedbacks.destroy');
+        // Админ роуты
+        Route::group(['prefix' => 'admin'], function () {
+            // Страница управления отзывами
+            Route::get('/feedbacks', 'AdminIndexController')->name('admin.feedbacks.index');
+            // Действие "Одобрить" отзыв
+            Route::get('/feedbacks/{feedback}/approve', 'AdminApproveController')->name('admin.feedbacks.approve');
+            // Действие "Отклонить" отзыв
+            Route::get('/feedbacks/{feedback}/disapprove', 'AdminDisapproveController')->name('admin.feedbacks.disapprove');
+        });
     });
 });
 
