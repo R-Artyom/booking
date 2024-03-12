@@ -11,7 +11,7 @@ class DestroyController extends Controller
     public function __invoke(Feedback $feedback)
     {
         // Проверка прав пользователя
-//        $this->authorize('delete', $room);
+        $this->authorize('delete', $feedback);
 
         // Удаление модели
         $feedback->delete();

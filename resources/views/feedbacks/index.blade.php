@@ -5,8 +5,8 @@
         {{-- Кнопка "Написать отзыв" --}}
         <div class="flex mb-4 justify-between">
             <div class="text-2xl text-center md:text-start font-bold">@yield('title') @if($feedbacks->isEmpty())отсутствуют@endif</div>
-            {{-- Кнопка доступна только если у юзера нет отзывов на этот отель)--}}
-            @if($feedbackAddLock === false)
+            {{-- Кнопка доступна только если юзер был гостем отеля и у него ещё нет отзывов на этот отель --}}
+            @if(isHotelGuest(auth()->user(), $hotel->id) && $feedbackAddLock === false)
                 <x-link-button-add href="{{ route('feedbacks.create', ['hotel' => $hotel]) }}">&#10010; Написать отзыв</x-link-button-add>
             @endif
         </div>

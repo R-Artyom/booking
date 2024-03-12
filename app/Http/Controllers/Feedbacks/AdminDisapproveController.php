@@ -11,7 +11,7 @@ class AdminDisapproveController extends Controller
     public function __invoke(Feedback $feedback)
     {
         // Проверка прав пользователя
-//        $this->authorize('update', $feedback);
+        $this->authorize('update', $feedback);
 
         // Флаг активности отзыва - "Отклонён"
         $feedback->is_active = false;

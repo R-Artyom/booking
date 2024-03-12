@@ -8,11 +8,11 @@ use App\Models\User;
 
 class FeedbacksIndexController extends Controller
 {
-    // Список отзывов
+    // Список "Мои отзывы"
     public function __invoke(User $user)
     {
         // Проверка прав пользователя
-//        $this->authorize('viewAny', Feedback::class);
+        $this->authorize('viewAny', Feedback::class);
 
         // Данные о всех отзывах пользователя
         $feedbacksBuilder = Feedback::query()

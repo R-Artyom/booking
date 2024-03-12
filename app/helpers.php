@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Booking;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 
@@ -46,6 +47,24 @@ function isGuest(User $user): bool
 {
     // Гость?
     return $user->roles->containsStrict('name', 'guest');
+}
+
+/**
+ * @param User|Authenticatable $user
+ * @param int $hotelId
+ * @return bool
+ */
+function isHotelGuest(User $user, int $hotelId): bool
+{
+    // Проживал в отеле?
+    $bookingsCollect = Booking::query()
+        ->leftJoin('rooms', 'rooms.id', 'bookings.room_id')
+        ->where('rooms.hotel_id', $hotelId)
+        ->where('bookings.user_id', $user->id)
+        ->where('bookings.status_id', config('status.Завершен'))
+        ->get();
+
+    return $bookingsCollect->isNotEmpty();
 }
 
 // ****************************************************************************

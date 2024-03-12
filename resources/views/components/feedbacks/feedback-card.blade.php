@@ -36,6 +36,7 @@
                         </div>
                     @endif
                 @else
+                    {{-- Доступны только автору отзыва --}}
                     @if($feedback->user_id === auth()->user()->id)
                         {{-- Кнопка "Редактировать" --}}
                         @if(!isAdminPanel())

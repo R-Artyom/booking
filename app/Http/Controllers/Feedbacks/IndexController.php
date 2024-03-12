@@ -8,11 +8,11 @@ use App\Models\Hotel;
 
 class IndexController extends Controller
 {
-    // Список отзывов
+    // Список отзывов отеля
     public function __invoke(Hotel $hotel)
     {
         // Проверка прав пользователя
-//        $this->authorize('viewAny', Feedback::class);
+        $this->authorize('viewAny', Feedback::class);
 
         // Данные о всех отзывах на отель
         $feedbacksBuilder = Feedback::query()

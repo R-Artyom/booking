@@ -12,7 +12,7 @@ class AdminIndexController extends Controller
     public function __invoke(Request $request)
     {
         // Проверка прав пользователя
-//        $this->authorize('viewAny', Feedback::class);
+        $this->authorize('viewAny', Feedback::class);
 
         // Данные о всех отзывах
         $feedbacksBuilder = Feedback::query();

@@ -12,7 +12,7 @@ class UpdateController extends Controller
     public function __invoke(Request $request, Feedback $feedback)
     {
         // Проверка прав пользователя
-//        $this->authorize('update', $feedback);
+        $this->authorize('update', $feedback);
 
         // Валидация
         $newData = $request->validate(

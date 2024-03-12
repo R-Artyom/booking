@@ -13,7 +13,7 @@ class StoreController extends Controller
     public function __invoke(Request $request, Hotel $hotel)
     {
         // Проверка прав пользователя
-//        $this->authorize('create', [Feedback::class, $hotel]);
+        $this->authorize('create', $hotel);
 
         // Валидация
         $newData = $request->validate(

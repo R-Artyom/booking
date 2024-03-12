@@ -11,7 +11,7 @@ class CreateController extends Controller
     public function __invoke(Hotel $hotel)
     {
         // Проверка прав пользователя
-//        $this->authorize('create', Feedback::class);
+        $this->authorize('create', $hotel);
 
         // Шаблон формы создания
         return view('feedbacks.create', compact('hotel'));

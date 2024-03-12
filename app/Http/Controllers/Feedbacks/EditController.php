@@ -11,7 +11,7 @@ class EditController extends Controller
     public function __invoke(Feedback $feedback)
     {
         // Проверка прав пользователя
-//        $this->authorize('update', $feedback);
+        $this->authorize('update', $feedback);
 
         // Шаблон редактирования отзыва
         return view('feedbacks.edit', compact('feedback'));
