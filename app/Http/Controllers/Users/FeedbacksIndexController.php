@@ -19,8 +19,8 @@ class FeedbacksIndexController extends Controller
             ->where('user_id', $user->id)
             // 1. Сортировака по признаку одобрения (чтобы сначала были отзывы тек. пользователя)
             ->orderBy('is_active', 'asc')
-            // 2. Сортировака по убыванию номера отзыва
-            ->orderBy('id', 'desc');
+            // 2. Сортировака по возрастанию даты создания отзыва
+            ->orderBy('created_at', 'asc');
 
         // Отзывы с пагинацией
         $feedbacks = $feedbacksBuilder->paginate(5);
