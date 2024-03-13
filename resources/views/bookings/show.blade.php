@@ -1,4 +1,4 @@
-@section('title', "Бронироние №{$booking->id}")
+@section('title', "Бронирование №{$booking->id}")
 
 <x-app-layout>
     <!-- component -->
