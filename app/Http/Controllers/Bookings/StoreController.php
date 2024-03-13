@@ -19,11 +19,11 @@ class StoreController extends Controller
 
         $validated = $this->validate($request, [
             // Дата начала заезда
-            'started_at' => 'required',
+            'started_at' => 'required|date',
             // Дата окончания заезда
-            'finished_at' => 'required|after:started_at',
+            'finished_at' => 'required|date|after:started_at',
             // Id номера отеля
-            'room_id' => 'required',
+            'room_id' => 'required|integer',
         ],
         [
             'started_at.required' => 'Введите дату начала заезда',
