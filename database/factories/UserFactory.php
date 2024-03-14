@@ -20,7 +20,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             // Пароль - user
-            'password' => Hash::make('user'),
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
             // Дата создания/обновления
             'created_at' => $this->faker->dateTimeInInterval('-5 years', '4 years'),

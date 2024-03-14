@@ -36,8 +36,8 @@ class BookingPolicy
      */
     public function view(User $user, Booking $booking): bool
     {
-        // * Просмотр бронирования
-        $isOwner = $booking->user_id === $user->id;
+        // * Просмотр бронирования (int - т.к. при тестах значение $booking->user_id почему-то string)
+        $isOwner = (int) $booking->user_id === $user->id;
         // Если это панель администратора - доступно владельцу бронирования, админу и менеджеру отеля
         if (isAdminPanel()) {
             return $isOwner || isAdmin($user) || isHotelManager($user, $booking->room->hotel_id);
@@ -67,7 +67,7 @@ class BookingPolicy
      */
     public function delete(User $user, Booking $booking): bool
     {
-        // * Отмена бронирования - доступно владельцу, админу и менеджеру отеля
-        return $booking->user_id === $user->id || isAdmin($user) || isHotelManager($user, $booking->room->hotel_id);
+        // * Отмена бронирования - доступно владельцу, админу и менеджеру отеля (int - т.к. при тестах значение $booking->user_id почему-то string)
+        return ((int) $booking->user_id === $user->id) || isAdmin($user) || isHotelManager($user, $booking->room->hotel_id);
     }
 }
