@@ -27,8 +27,8 @@
                             <td class="text-left py-1 px-4">{{ $facilities[$i]->name }}</td>
                             <td class="text-left py-1 px-4">{{ $facilities[$i]->created_at }}</td>
                             <td class="text-left py-1 px-4">
-                                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('admin.facilities.edit', ['facility' => $facilities[$i]]) }}">
-                                    &#9998; Редактировать
+                                <a class="flex items-center underline text-gray-600 hover:text-gray-900" href="{{ route('admin.facilities.edit', ['facility' => $facilities[$i]]) }}">
+                                    <x-gmdi-edit-o class="w-5 h-5 mr-1"/> Редактировать
                                 </a>
                             </td>
                         </tr>
