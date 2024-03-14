@@ -35,8 +35,8 @@
 
                 <div class="flex items-center justify-between mt-4">
                     {{-- Ссылка "Назад" --}}
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('admin.facilities.index') }}">
-                        &#8701; Вернуться к списку удобств
+                    <a class="flex items-center underline text-gray-600 hover:text-gray-900" href="{{ route('admin.facilities.index') }}">
+                        <x-gmdi-arrow-circle-left class="w-5 h-5 mr-1"/> Вернуться к списку удобств
                     </a>
 
                     {{-- Кнопка "Сохранить" --}}

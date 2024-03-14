@@ -28,8 +28,8 @@
 
                 <div class="flex items-center justify-between mt-4">
                     {{-- Ссылка "Отмена" --}}
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('admin.facilities.index') }}">
-                        &#8701; Отмена
+                    <a class="flex items-center underline text-gray-600 hover:text-gray-900" href="{{ route('admin.facilities.index') }}">
+                        <x-gmdi-arrow-circle-left class="w-5 h-5 mr-1"/> Отмена
                     </a>
 
                     {{-- Кнопка "Создать" --}}

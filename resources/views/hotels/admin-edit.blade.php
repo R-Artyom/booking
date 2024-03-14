@@ -107,8 +107,8 @@
                 </div>
 
                 <div class="flex items-center justify-between mt-4">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('admin.hotels.show', ['hotel' => $hotel]) }}">
-                        &#8701; Вернуться к отелю
+                    <a class="flex items-center underline text-gray-600 hover:text-gray-900" href="{{ route('admin.hotels.show', ['hotel' => $hotel]) }}">
+                        <x-gmdi-arrow-circle-left class="w-5 h-5 mr-1"/> Вернуться к отелю
                     </a>
                     <x-button class="ml-4" formnovalidate>
                         Сохранить изменения
