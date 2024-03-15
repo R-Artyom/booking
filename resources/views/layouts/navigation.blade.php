@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-gradient-to-r from-gray-300 to-gray-100 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
 
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,23 +14,41 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link href="{{ route('hotels.index') }}" active="{{ request()->routeIs('hotels.index') }}">
-                        {{ __('Hotels') }}
+                        Отели
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('bookings.index') }}" active="{{ request()->routeIs('bookings.index') }}">
-                        {{ __('Bookings') }}
-                    </x-nav-link>
-                </div>
+                @auth
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('bookings.index') }}" active="{{ request()->routeIs('bookings.index') }}">
+                            Мои бронирования
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('users.feedbacks.index', ['user' => auth()->user()]) }}" active="{{ request()->routeIs('users.feedbacks.index', ['user' => auth()->user()]) }}">
+                            Мои отзывы
+                        </x-nav-link>
+                    </div>
+                @endauth
             </div>
+
+            @guest
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('login') }}" active="{{ request()->routeIs('login') }}">
+                        {{ __('Log in') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('register') }}" active="{{ request()->routeIs('register') }}">
+                        {{ __('Register') }}
+                    </x-nav-link>
+                </div>
+            @endguest
 
             <!-- Settings Dropdown -->
             @if(auth()->check())
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <x-dropdown align="right" width="48">
+                    <x-dropdown align="right" width="64">
                         <x-slot name="trigger">
                             <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                                <div>{{ Auth::user()->name }}</div>
+                                <div>{{ Auth::user()->name . ' (' . implode(', ', Auth::user()->roles->pluck('description')->toArray()) . ')'}}</div>
 
                                 <div class="ml-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -42,6 +60,27 @@
 
                         <x-slot name="content">
                             <!-- Authentication -->
+                            @if(isAdmin(Auth::user()) || isManager(Auth::user()))
+                                <x-dropdown-link :href="route('admin.bookings.index')">
+                                    Управление бронированиями
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.hotels.index')">
+                                    Управление отелями
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.feedbacks.index')">
+                                    Управление отзывами
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('admin.facilities.index')">
+                                    Удобства
+                                </x-dropdown-link>
+                            @endif
+
+                            @if(isAdmin(Auth::user()))
+                                <x-dropdown-link :href="route('admin.users.index')">
+                                    Пользователи
+                                </x-dropdown-link>
+                            @endif
+
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
@@ -70,17 +109,60 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="pb-1 space-y-1">
             <x-responsive-nav-link href="{{ route('hotels.index') }}" active="{{ request()->routeIs('hotels.index') }}">
-                {{ __('Hotels') }}
+                Отели
             </x-responsive-nav-link>
         </div>
+        @auth
+            <div class="pb-1 space-y-1">
+                <x-responsive-nav-link href="{{ route('bookings.index') }}" active="{{ request()->routeIs('bookings.index') }}">
+                    Мои бронирования
+                </x-responsive-nav-link>
+            </div>
+            <div class="pb-1 space-y-1">
+                <x-responsive-nav-link href="{{ route('users.feedbacks.index', ['user' => auth()->user()]) }}" active="{{ request()->routeIs('users.feedbacks.index', ['user' => auth()->user()]) }}">
+                    Мои отзывы
+                </x-responsive-nav-link>
+            </div>
+
+            @if(isAdmin(Auth::user()) || isManager(Auth::user()))
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.bookings.index') }}" active="{{ request()->routeIs('admin.bookings.index') }}">
+                        Управление бронированиями
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.hotels.index') }}" active="{{ request()->routeIs('admin.hotels.index') }}">
+                        Управление отелями
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.feedbacks.index') }}" active="{{ request()->routeIs('admin.feedbacks.index') }}">
+                        Управление отзывами
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.facilities.index') }}" active="{{ request()->routeIs('admin.facilities.index') }}">
+                        Удобства
+                    </x-responsive-nav-link>
+                </div>
+            @endif
+
+            @if(isAdmin(Auth::user()))
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.users.index') }}" active="{{ request()->routeIs('admin.users.index') }}">
+                        Пользователи
+                    </x-responsive-nav-link>
+                </div>
+            @endif
+        @endauth
 
         <!-- Responsive Settings Options -->
         @if(auth()->check())
-            <div class="pt-4 pb-1 border-t border-gray-200">
+            <div class="pt-4 pb-1 bg-gray-50">
                 <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                    <div>{{ Auth::user()->name . ' (' . implode(', ', Auth::user()->roles->pluck('description')->toArray()) . ')'}}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
 
@@ -88,7 +170,6 @@
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
                         <x-responsive-nav-link :href="route('logout')"
                                                onclick="event.preventDefault();
                                         this.closest('form').submit();">

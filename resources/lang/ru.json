@@ -1,5 +1,5 @@
 {
-    "Bookings": "Бронирования",
+    "Bookings": "Мои бронирования",
     "Booking": "Бронирование",
     "Hotels": "Отели",
     "Hotel": "Отель",
@@ -18,6 +18,14 @@
     "Forgot your password?": "Забыли пароль",
     "Remember me": "Запомнить меня",
     "Register": "Зарегистрироваться",
-    "Confirm Password": "Повторите пароль"
-
+    "Confirm Password": "Повторите пароль",
+    "Showing": "Показано записей с ",
+    "to": "по",
+    "of": "из",
+    "results": " ",
+    "Whoops! Something went wrong.": "Упс! Что-то пошло не так.",
+    "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.": "Забыли свой пароль? Без проблем. Просто сообщите нам свой адрес электронной почты, и мы вышлем вам по электронной почте ссылку для сброса пароля, которая позволит вам выбрать новый.",
+    "Email Password Reset Link": "Ссылка для сброса пароля",
+    "Already registered?": "Уже зарегистрированы?",
+    "The email has already been taken.": "Пользователь с таким email уже существует."
 }
