@@ -1321,9 +1321,6 @@ select {
 .pb-2 {
   padding-bottom: 0.5rem;
 }
-.pb-3 {
-  padding-bottom: 0.75rem;
-}
 .pb-4 {
   padding-bottom: 1rem;
 }
@@ -1375,10 +1372,6 @@ select {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
-}
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 .text-base {
   font-size: 1rem;
@@ -2357,15 +2350,6 @@ select {
     padding-left: 2rem;
     padding-right: 2rem;
   }
-
-  .lg\:text-4xl {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-
-  .lg\:leading-9 {
-    line-height: 2.25rem;
-  }
 }
 @media (min-width: 1280px) {
 
@@ -2412,11 +2396,6 @@ select {
   .xl\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
-  }
-
-  .xl\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
   }
 
   .xl\:text-lg {

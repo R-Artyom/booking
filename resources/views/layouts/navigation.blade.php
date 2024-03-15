@@ -14,13 +14,13 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link href="{{ route('hotels.index') }}" active="{{ request()->routeIs('hotels.index') }}">
-                        {{ __('Hotels') }}
+                        Отели
                     </x-nav-link>
                 </div>
                 @auth
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link href="{{ route('bookings.index') }}" active="{{ request()->routeIs('bookings.index') }}">
-                            {{ __('Bookings') }}
+                            Мои бронирования
                         </x-nav-link>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -60,7 +60,6 @@
 
                         <x-slot name="content">
                             <!-- Authentication -->
-
                             @if(isAdmin(Auth::user()) || isManager(Auth::user()))
                                 <x-dropdown-link :href="route('admin.bookings.index')">
                                     Управление бронированиями
@@ -110,17 +109,60 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="pb-1 space-y-1">
             <x-responsive-nav-link href="{{ route('hotels.index') }}" active="{{ request()->routeIs('hotels.index') }}">
-                {{ __('Hotels') }}
+                Отели
             </x-responsive-nav-link>
         </div>
+        @auth
+            <div class="pb-1 space-y-1">
+                <x-responsive-nav-link href="{{ route('bookings.index') }}" active="{{ request()->routeIs('bookings.index') }}">
+                    Мои бронирования
+                </x-responsive-nav-link>
+            </div>
+            <div class="pb-1 space-y-1">
+                <x-responsive-nav-link href="{{ route('users.feedbacks.index', ['user' => auth()->user()]) }}" active="{{ request()->routeIs('users.feedbacks.index', ['user' => auth()->user()]) }}">
+                    Мои отзывы
+                </x-responsive-nav-link>
+            </div>
+
+            @if(isAdmin(Auth::user()) || isManager(Auth::user()))
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.bookings.index') }}" active="{{ request()->routeIs('admin.bookings.index') }}">
+                        Управление бронированиями
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.hotels.index') }}" active="{{ request()->routeIs('admin.hotels.index') }}">
+                        Управление отелями
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.feedbacks.index') }}" active="{{ request()->routeIs('admin.feedbacks.index') }}">
+                        Управление отзывами
+                    </x-responsive-nav-link>
+                </div>
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.facilities.index') }}" active="{{ request()->routeIs('admin.facilities.index') }}">
+                        Удобства
+                    </x-responsive-nav-link>
+                </div>
+            @endif
+
+            @if(isAdmin(Auth::user()))
+                <div class="pb-1 space-y-1">
+                    <x-responsive-nav-link href="{{ route('admin.users.index') }}" active="{{ request()->routeIs('admin.users.index') }}">
+                        Пользователи
+                    </x-responsive-nav-link>
+                </div>
+            @endif
+        @endauth
 
         <!-- Responsive Settings Options -->
         @if(auth()->check())
-            <div class="pt-4 pb-1 border-t border-gray-200">
+            <div class="pt-4 pb-1 bg-gray-50">
                 <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                    <div>{{ Auth::user()->name . ' (' . implode(', ', Auth::user()->roles->pluck('description')->toArray()) . ')'}}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
 
@@ -128,7 +170,6 @@
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
                         <x-responsive-nav-link :href="route('logout')"
                                                onclick="event.preventDefault();
                                         this.closest('form').submit();">
