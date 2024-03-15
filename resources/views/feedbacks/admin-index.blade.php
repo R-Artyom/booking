@@ -7,7 +7,7 @@
         @if(!$feedbacks->isEmpty())
             @foreach($feedbacks as $feedback)
                 {{-- Название отеля --}}
-                <a class="text-2xl text-center md:text-start font-bold" href="{{ route('hotels.show', ['hotel' => $feedback->hotel]) }}">
+                <a class="text-2xl text-center md:text-start font-bold" href="{{ route('admin.hotels.show', ['hotel' => $feedback->hotel]) }}">
                     {{ $feedback->hotel->name }}
                 </a>
                 {{-- Адрес отеля --}}

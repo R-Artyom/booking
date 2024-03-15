@@ -4,7 +4,7 @@
     <!-- component -->
     <div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
         <div class="flex justify-start item-start space-y-2 flex-col">
-            <a class="text-2xl font-bold text-gray-800" href="{{ route('hotels.show', ['hotel' => $booking->room->hotel]) }}">
+            <a class="text-2xl font-bold text-gray-800" href="{{ route(isAdminPanel() ? 'admin.hotels.show' : 'hotels.show', ['hotel' => $booking->room->hotel]) }}">
                 Отель {{ $booking->room->hotel->name }}
             </a>
         </div>

@@ -2,7 +2,7 @@
     <img class="w-1/2 h-full rounded-l-sm" src="{{ $hotel->poster_url }}" alt="Hotel Image">
     <div class="w-full flex flex-col justify-between p-3">
         <div>
-            <a class="block text-grey-darkest font-bold" href="{{ route('hotels.show', ['hotel' => $hotel]) }}">
+            <a class="block text-grey-darkest font-bold" href="{{ route(isAdminPanel() ? 'admin.hotels.show' : 'hotels.show', ['hotel' => $hotel]) }}">
                 {{ $hotel->name }}
             </a>
             <div class="text-xs font-bold mb-2">
