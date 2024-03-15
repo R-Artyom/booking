@@ -71,7 +71,7 @@ class AdminStoreController extends Controller
             // Если есть что загружать
             if ($request->hasFile('image')) {
                 // Загрузка файла на сервер storage/public/hotels/...
-                $posterUrl = $request->image->store('hotels', 'public');
+                $posterUrl = $request->file('image')->store('hotels', 'public');
                 // Сохранение нового значения
                 $hotel->poster_url = $posterUrl;
             }
